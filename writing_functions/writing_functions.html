@@ -370,6 +370,7 @@ summary {
 </div>
 
 
+<p><strong>NOTE: Not connected to github</strong></p>
 <div id="slides" class="section level1">
 <h1>Slides</h1>
 <p>If you’re using the same code more than once, write a function. Prevents mistakes from contnuous copy and paste.</p>
@@ -383,18 +384,21 @@ summary {
 </div>
 <div id="get-started" class="section level2">
 <h2>Get Started</h2>
+<p>The best way to build up a function is to start with code you’ve written outside a function. To see how this might work, I’ll start with a simple example: the chunk below takes a sample from a normal distribution and then computes the vector of Z scores for the sample.</p>
 <pre class="r"><code>x = rnorm (n = 30, mean = 4, sd = 2.3)
+# another vector: 
 x_again = rnorm (n = 30, mean = 6, sd = .3)
+y = rnorm(n = 30, mean = 24, sd = 2.3)
 
 z_transformation = mean(x)/sd(x)
 (x_again - mean(x_again)/sd(x_again))</code></pre>
-<pre><code>##  [1] -17.10680 -16.68331 -17.00314 -16.81694 -16.81749 -17.22080 -17.39279
-##  [8] -16.97806 -16.87292 -16.91600 -17.02064 -17.11983 -16.67892 -16.99648
-## [15] -16.69436 -16.85904 -17.03490 -16.95553 -17.08636 -17.22387 -17.06360
-## [22] -17.22597 -17.14440 -17.60772 -17.47909 -17.41116 -17.11664 -16.58037
-## [29] -17.52727 -17.23376</code></pre>
+<pre><code>##  [1] -15.07809 -15.34186 -15.41429 -15.47995 -15.63168 -14.95930 -15.62546
+##  [8] -15.47317 -15.14226 -14.82971 -14.98861 -15.50991 -15.35157 -15.20024
+## [15] -15.20949 -15.27103 -15.42867 -15.47872 -15.13297 -15.72328 -15.51665
+## [22] -15.16149 -14.90919 -15.47961 -15.78019 -15.23441 -15.03447 -15.44238
+## [29] -15.81627 -15.90933</code></pre>
 <p>To avoid the above, write a function:</p>
-<pre class="r"><code># here, x is what we're calling whatever we put in the function. 
+<pre class="r"><code># here, x is what we're calling whatever we put in the function and z_score is the name of the function. 
 
 z_score = function(x) {
   z = (x - mean(x))/sd(x)
@@ -402,16 +406,31 @@ z_score = function(x) {
 }</code></pre>
 <p>Now we try out the function.</p>
 <pre class="r"><code>z_score(x)</code></pre>
-<pre><code>##  [1] -1.68812423  1.42673106  1.26686072 -0.58058238 -0.80811143
-##  [6]  0.99048461  1.12201771 -0.91538493  1.86975248 -0.08707578
-## [11] -1.40628196 -2.14146749 -0.83670145  0.47822344 -0.04275344
-## [16]  0.42509324 -0.69382053  1.07905405  0.29563741 -0.23279372
-## [21]  1.06176436 -0.48098452 -1.08833241 -0.31677567 -0.62572741
-## [26]  0.48514851  0.51174831 -0.04263693 -0.36879193  1.34383031</code></pre>
+<pre><code>##  [1]  1.273209910 -1.516601826  1.183489287 -1.342864795 -0.009252877
+##  [6] -0.922108459  0.701772218 -1.030892303  0.357634133 -0.361039997
+## [11]  0.383963651  0.593982017  0.618354023 -0.503651606 -1.871407849
+## [16] -0.092575413  1.125240578 -1.451131475  0.368084663  1.108759996
+## [21]  1.559348888  0.038165457 -0.745854399  1.574255927  1.034252414
+## [26] -0.652218598  0.465300272  0.125237967 -0.453704320 -1.557747484</code></pre>
+<pre class="r"><code>z_score(x = x) # same thing as above </code></pre>
+<pre><code>##  [1]  1.273209910 -1.516601826  1.183489287 -1.342864795 -0.009252877
+##  [6] -0.922108459  0.701772218 -1.030892303  0.357634133 -0.361039997
+## [11]  0.383963651  0.593982017  0.618354023 -0.503651606 -1.871407849
+## [16] -0.092575413  1.125240578 -1.451131475  0.368084663  1.108759996
+## [21]  1.559348888  0.038165457 -0.745854399  1.574255927  1.034252414
+## [26] -0.652218598  0.465300272  0.125237967 -0.453704320 -1.557747484</code></pre>
+<pre class="r"><code>z_score(x = y)</code></pre>
+<pre><code>##  [1] -0.87746135  2.19525377 -0.04953159  1.81391172  1.80761240
+##  [6] -1.55456910 -0.16389606 -1.42180527 -0.21783342 -0.83910484
+## [11] -0.78647652  0.85285637 -0.17696448 -0.71356809  0.51492764
+## [16]  2.10778753  0.33447673 -0.51599873  0.88471734 -0.42154475
+## [21] -0.64350454  0.74561341 -0.00884114 -0.25841310 -1.20995620
+## [26] -0.49618019  0.07472980  0.15000826 -0.18112550 -0.94512009</code></pre>
 <pre class="r"><code>z_score(x = 3)</code></pre>
 <pre><code>## [1] NA</code></pre>
-<pre class="r"><code>#z_score(x = &quot;my name is alice&quot;)
-z_score(x = c(TRUE, TRUE, FALSE, TRUE))</code></pre>
+<pre class="r"><code>z_score(x = &quot;my name is alice&quot;)</code></pre>
+<pre><code>## Error in x - mean(x): non-numeric argument to binary operator</code></pre>
+<pre class="r"><code>z_score(x = c(TRUE, TRUE, FALSE, TRUE))</code></pre>
 <pre><code>## [1]  0.5  0.5 -1.5  0.5</code></pre>
 <p>We can now define when the function breaks, i.e. conditional execution.</p>
 <pre class="r"><code>z_score = function(x) {
@@ -426,35 +445,81 @@ z_score(x = c(TRUE, TRUE, FALSE, TRUE))</code></pre>
 }</code></pre>
 <p>Running again:</p>
 <pre class="r"><code>z_score(x)</code></pre>
-<pre><code>##  [1] -1.68812423  1.42673106  1.26686072 -0.58058238 -0.80811143
-##  [6]  0.99048461  1.12201771 -0.91538493  1.86975248 -0.08707578
-## [11] -1.40628196 -2.14146749 -0.83670145  0.47822344 -0.04275344
-## [16]  0.42509324 -0.69382053  1.07905405  0.29563741 -0.23279372
-## [21]  1.06176436 -0.48098452 -1.08833241 -0.31677567 -0.62572741
-## [26]  0.48514851  0.51174831 -0.04263693 -0.36879193  1.34383031</code></pre>
-<pre class="r"><code>#z_score(x = 3)
-#z_score(x = &quot;my name is alice&quot;)
-#z_score(x = c(TRUE, TRUE, FALSE, TRUE))</code></pre>
+<pre><code>##  [1]  1.273209910 -1.516601826  1.183489287 -1.342864795 -0.009252877
+##  [6] -0.922108459  0.701772218 -1.030892303  0.357634133 -0.361039997
+## [11]  0.383963651  0.593982017  0.618354023 -0.503651606 -1.871407849
+## [16] -0.092575413  1.125240578 -1.451131475  0.368084663  1.108759996
+## [21]  1.559348888  0.038165457 -0.745854399  1.574255927  1.034252414
+## [26] -0.652218598  0.465300272  0.125237967 -0.453704320 -1.557747484</code></pre>
+<pre class="r"><code>z_score(x = 3)</code></pre>
+<pre><code>## Error in z_score(x = 3): Z scores cannot be computed for length 1 vectors</code></pre>
+<pre class="r"><code>z_score(x = &quot;my name is alice&quot;)</code></pre>
+<pre><code>## Error in z_score(x = &quot;my name is alice&quot;): argument should be numeric</code></pre>
+<pre class="r"><code>z_score(x = c(TRUE, TRUE, FALSE, TRUE))</code></pre>
+<pre><code>## Error in z_score(x = c(TRUE, TRUE, FALSE, TRUE)): argument should be numeric</code></pre>
 </div>
 <div id="multiple-outputs" class="section level2">
 <h2>Multiple Outputs</h2>
-<p>Write a function that produces multiple outputs:</p>
+<p>Write a function that produces multiple outputs. This function gives us both the mean and the standard deviation.</p>
 <pre class="r"><code>mean_and_sd = function(input_x) {
   
-  if(!is.numeric(input_x)){
+  if(!is.numeric(input_x)) {
     stop(&quot;argument should be numeric&quot;)
     }
   else if (length(input_x) &lt; 3) {
     stop(&quot;x should be larger than 3&quot;)
   }
-  mean_x = mean(input_x)
-  sd_x = sd(input_x)
+  tibble(
+    mean_x = mean(input_x),
+    sd_x = sd(input_x)  
+  )
 }</code></pre>
-<p>Some stuff with lists.</p>
+<p>Test the function:</p>
+<pre class="r"><code>mean_and_sd(input_x = y)</code></pre>
+<pre><code>## # A tibble: 1 x 2
+##   mean_x  sd_x
+##    &lt;dbl&gt; &lt;dbl&gt;
+## 1   24.0  2.14</code></pre>
+<p>Note that above, when we used a tibble, we chould have also used a list. Lists are cool because they allow you to keep track of things that aren’t numbers.</p>
+<p>In general, either of these will be fine; which one you choose will depend on what kind of values you want to return, and what you plan to do with the function itself. If you want to return the original sample along with the computed values, a list might make sense; if you plan to run your function a lot and study the results, having a data frame will make it easier to use other tools. We’ll see more of that in iteration and simulation.</p>
 </div>
 <div id="multiple-inputs" class="section level2">
 <h2>Multiple Inputs</h2>
+<p>Go through this again.</p>
+<pre class="r"><code>sim_data = tibble(
+  x = rnorm(30, mean = 1, sd = 1),
+  y = 2 + 3 * x + rnorm(30, 0, 1)
+)
+
+ls_fit = lm(y ~ x, data = sim_data)
+  
+beta0_hat = coef(ls_fit)[1]
+beta1_hat = coef(ls_fit)[2]</code></pre>
+<p>Write a function that simulates regression:</p>
+<pre class="r"><code>sim_regression = function(n, beta0 = 2, beta1 = 3) {
+  
+sim_data = tibble(
+    x = rnorm(n, mean = 1, sd = 1),
+    y = beta0 + beta1 * x + rnorm(n, 0, 1)
+  )
+  
+ls_fit = lm(y ~ x, data = sim_data)
+  
+tibble(
+    beta0_hat = coef(ls_fit)[1],
+    beta1_hat = coef(ls_fit)[2]
+  )
+  }
+
+sim_regression(3000)</code></pre>
+<pre><code>## # A tibble: 1 x 2
+##   beta0_hat beta1_hat
+##       &lt;dbl&gt;     &lt;dbl&gt;
+## 1      1.99      3.01</code></pre>
 </div>
+</div>
+<div id="argument-names-and-scoping" class="section level1">
+<h1>Argument names and scoping</h1>
 </div>
 
 

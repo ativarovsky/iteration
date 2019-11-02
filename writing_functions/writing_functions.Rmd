@@ -24,14 +24,34 @@ Functions consist of
 ```{r setup, include=FALSE}
 
 library(tidyverse)
+library(rvest)
+
+knitr::opts_chunk$set(
+	echo = TRUE,
+	warning = FALSE,
+	fig.width = 8, 
+  fig.height = 6,
+  out.width = "90%"
+)
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
 
 ```
 
 ## Get Started 
 
+The best way to build up a function is to start with code you’ve written outside a function. To see how this might work, I’ll start with a simple example: the chunk below takes a sample from a normal distribution and then computes the vector of Z scores for the sample.
+
 ```{r}
 x = rnorm (n = 30, mean = 4, sd = 2.3)
+# another vector: 
 x_again = rnorm (n = 30, mean = 6, sd = .3)
+y = rnorm(n = 30, mean = 24, sd = 2.3)
 
 z_transformation = mean(x)/sd(x)
 (x_again - mean(x_again)/sd(x_again))
@@ -40,7 +60,7 @@ z_transformation = mean(x)/sd(x)
 To avoid the above, write a function: 
 
 ```{r}
-# here, x is what we're calling whatever we put in the function. 
+# here, x is what we're calling whatever we put in the function and z_score is the name of the function. 
 
 z_score = function(x) {
   z = (x - mean(x))/sd(x)
@@ -50,11 +70,13 @@ z_score = function(x) {
 
 Now we try out the function. 
 
-```{r}
+```{r error = TRUE}
 z_score(x)
+z_score(x = x) # same thing as above 
+z_score(x = y)
 
 z_score(x = 3)
-#z_score(x = "my name is alice")
+z_score(x = "my name is alice")
 z_score(x = c(TRUE, TRUE, FALSE, TRUE))
 
 ```
@@ -75,36 +97,45 @@ z_score = function(x) {
 ```
 
 Running again: 
-```{r}
+```{r error = TRUE}
 z_score(x)
 
-#z_score(x = 3)
-#z_score(x = "my name is alice")
-#z_score(x = c(TRUE, TRUE, FALSE, TRUE))
+z_score(x = 3)
+z_score(x = "my name is alice")
+z_score(x = c(TRUE, TRUE, FALSE, TRUE))
 
 ```
 
 
 ## Multiple Outputs
 
-Write a function that produces multiple outputs: 
+Write a function that produces multiple outputs. This function gives us both the mean and the standard deviation.  
 
 ```{r}
-
 mean_and_sd = function(input_x) {
   
-  if(!is.numeric(input_x)){
+  if(!is.numeric(input_x)) {
     stop("argument should be numeric")
     }
   else if (length(input_x) < 3) {
     stop("x should be larger than 3")
   }
-  mean_x = mean(input_x)
-  sd_x = sd(input_x)
+  tibble(
+    mean_x = mean(input_x),
+    sd_x = sd(input_x)  
+  )
 }
 ```
 
-Some stuff with lists. 
+Test the function: 
+
+```{r}
+mean_and_sd(input_x = y)
+```
+
+Note that above, when we used a tibble, we chould have also used a list. Lists are cool because they allow you to keep track of things that aren't numbers. 
+
+In general, either of these will be fine; which one you choose will depend on what kind of values you want to return, and what you plan to do with the function itself. If you want to return the original sample along with the computed values, a list might make sense; if you plan to run your function a lot and study the results, having a data frame will make it easier to use other tools. We’ll see more of that in iteration and simulation.
 
 ## Multiple Inputs
 
