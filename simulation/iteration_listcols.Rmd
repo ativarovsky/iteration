@@ -1,0 +1,60 @@
+---
+title: "Iteration and Listcols"
+author: "Alice Tivarovsky"
+date: "10/31/2019"
+output: html_document
+---
+
+
+# Slides
+
+###For loops 
+Loops consist of an output object; a sequence to iterate over; the loop body; and (optionally) an input object. For loops are hard to work with but purr package makes for loops easier using maps. 
+
+Basic structure: output = map(input, f)
+
+
+###Lists
+Lists hold everything. They give you a way to mix different data types (dbl vectors, string vectors, data frames, etc.). Dataframes are a special type of list - one that is formatted in a rectangle. 
+
+You can even put lists inside of lists - these are called list columns. This makes data easier to work with (even though it's hard to understand in the beginning). 
+
+
+#Examples 
+
+Setup code: 
+```{r setup, include=FALSE}
+library(tidyverse)
+library(rvest)
+
+knitr::opts_chunk$set(
+	echo = TRUE,
+	warning = FALSE,
+	fig.width = 8, 
+  fig.height = 6,
+  out.width = "90%"
+)
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+```
+
+## Lists
+We need a brief digression about lists before we do anything.
+
+In R, vectors are limited to a single data class – all elements are characters, or all numeric, or all logical. Trying to join the following vectors will result in _coersion_, as would creating vectors of mixed types.
+
+```{r}
+l = list(vec_numeric = 5:8,
+         mat         = matrix(1:8, 2, 4),
+         vec_logical = c(TRUE, FALSE),
+         summary     = summary(rnorm(1000)))
+l
+```
+
+
+ 

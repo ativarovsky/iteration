@@ -1,0 +1,76 @@
+---
+title: "Simulations"
+author: "Alice Tivarovsky"
+date: "10/31/2019"
+output: html_document
+---
+
+
+# Slides
+
+Simulations are useful for statistical modeling. 
+
+
+
+
+#Examples 
+
+Setup code: 
+```{r setup, include=FALSE}
+
+library(tidyverse)
+
+set.seed(1)
+
+```
+
+##Simulation: Simple Linear Regression for one n
+
+```{r}
+sim_regression = function(n, beta0 = 2, beta1 = 3) {
+  
+  sim_data = tibble(
+    x = rnorm(n, mean = 1, sd = 1),
+    y = beta0 + beta1 * x + rnorm(n, 0, 1)
+  )
+  
+  ls_fit = lm(y ~ x, data = sim_data)
+  
+  tibble(
+    beta0_hat = coef(ls_fit)[1],
+    beta1_hat = coef(ls_fit)[2]
+  )
+}
+```
+
+Let’s run sim_regression() 100 times to see the effect of randomness in ϵ on estimates β̂0,β̂1
+
+```{r}
+output = vector("list", 100)
+
+for (i in 1:100) {
+  output[[i]] = sim_regression(30)
+}
+
+sim_results = bind_rows(output)
+```
+ 
+Taking a look at the for loop we used to create these results, you might notice that there’s no input list – the sequence is used to keep track of the output but doesn’t affect the computation performed inside the for loop. In cases like these, the purrr::rerun function is very handy.
+
+
+```{r}
+sim_results = 
+  rerun(100, sim_regression(30, 2, 3)) %>% 
+  bind_rows()
+```
+
+Structurally, rerun is a lot like map – the first argument defines the amount of iteration and the second argument is the function to use in each iteration step. As with map, we’ve replaced a for loop with a segment of code that makes our purpose much more transparent but both approaches give the same results.
+
+Let’s make some quick plots and compute some summaries for our simulation results.
+
+```{r}
+sim_results %>% 
+  ggplot(aes(x = beta0_hat, y = beta1_hat)) + 
+  geom_point()
+```
+

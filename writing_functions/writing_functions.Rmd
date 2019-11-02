@@ -1,0 +1,154 @@
+---
+title: "Writing Functions"
+author: "Alice Tivarovsky"
+date: "10/24/2019"
+output: html_document
+---
+**NOTE: Not connected to github**
+
+# Slides
+
+If you're using the same code more than once, write a function. Prevents mistakes from contnuous copy and paste. 
+
+Functions consist of 
+- arguments(inputs)
+- body (code that does stuff)
+- Return objects (what the function produces)
+ 
+ Scoping: this is how R looks for variables. Usually we're in the global environment. With functions, we crat a local environment. 
+ 
+ 
+# Example 
+
+## Setup 
+```{r setup, include=FALSE}
+
+library(tidyverse)
+
+```
+
+## Get Started 
+
+```{r}
+x = rnorm (n = 30, mean = 4, sd = 2.3)
+x_again = rnorm (n = 30, mean = 6, sd = .3)
+
+z_transformation = mean(x)/sd(x)
+(x_again - mean(x_again)/sd(x_again))
+```
+
+To avoid the above, write a function: 
+
+```{r}
+# here, x is what we're calling whatever we put in the function. 
+
+z_score = function(x) {
+  z = (x - mean(x))/sd(x)
+  z
+}
+```
+
+Now we try out the function. 
+
+```{r}
+z_score(x)
+
+z_score(x = 3)
+#z_score(x = "my name is alice")
+z_score(x = c(TRUE, TRUE, FALSE, TRUE))
+
+```
+
+We can now define when the function breaks, i.e. conditional execution. 
+
+```{r}
+z_score = function(x) {
+  
+  if(!is.numeric(x)) {
+    stop("argument should be numeric")}
+  else if (length(x) == 1) {
+    stop("Z scores cannot be computed for length 1 vectors")
+  }
+  z = (x - mean(x))/sd(x)
+  z
+}
+```
+
+Running again: 
+```{r}
+z_score(x)
+
+#z_score(x = 3)
+#z_score(x = "my name is alice")
+#z_score(x = c(TRUE, TRUE, FALSE, TRUE))
+
+```
+
+
+## Multiple Outputs
+
+Write a function that produces multiple outputs: 
+
+```{r}
+
+mean_and_sd = function(input_x) {
+  
+  if(!is.numeric(input_x)){
+    stop("argument should be numeric")
+    }
+  else if (length(input_x) < 3) {
+    stop("x should be larger than 3")
+  }
+  mean_x = mean(input_x)
+  sd_x = sd(input_x)
+}
+```
+
+Some stuff with lists. 
+
+## Multiple Inputs
+
+Go through this again. 
+
+```{r}
+sim_data = tibble(
+  x = rnorm(30, mean = 1, sd = 1),
+  y = 2 + 3 * x + rnorm(30, 0, 1)
+)
+
+ls_fit = lm(y ~ x, data = sim_data)
+  
+beta0_hat = coef(ls_fit)[1]
+beta1_hat = coef(ls_fit)[2]
+```
+
+
+Write a function that simulates regression: 
+
+```{r}
+
+sim_regression = function(n, beta0 = 2, beta1 = 3) {
+  
+sim_data = tibble(
+    x = rnorm(n, mean = 1, sd = 1),
+    y = beta0 + beta1 * x + rnorm(n, 0, 1)
+  )
+  
+ls_fit = lm(y ~ x, data = sim_data)
+  
+tibble(
+    beta0_hat = coef(ls_fit)[1],
+    beta1_hat = coef(ls_fit)[2]
+  )
+  }
+
+sim_regression(3000)
+```
+
+
+# Argument names and scoping 
+
+```{r}
+
+```
+
