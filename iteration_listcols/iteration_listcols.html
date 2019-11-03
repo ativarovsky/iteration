@@ -408,13 +408,13 @@ l</code></pre>
 ## 
 ## $summary
 ##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-## -3.63791 -0.62058  0.02493  0.02142  0.68219  2.98623</code></pre>
+## -3.10641 -0.63066  0.02861  0.03155  0.75193  3.30456</code></pre>
 <p>We can pull stuff out of the list:</p>
 <pre class="r"><code>l$vec_numeric</code></pre>
 <pre><code>## [1] 5 6 7 8</code></pre>
 <pre class="r"><code>l$summary</code></pre>
 <pre><code>##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-## -3.63791 -0.62058  0.02493  0.02142  0.68219  2.98623</code></pre>
+## -3.10641 -0.63066  0.02861  0.03155  0.75193  3.30456</code></pre>
 <pre class="r"><code># you can also use the index
 l[[2]]</code></pre>
 <pre><code>##      [,1] [,2] [,3] [,4]
@@ -437,14 +437,14 @@ mean(l$vec_numeric)</code></pre>
 
 #pulling stuff out of the list
 df$a</code></pre>
-<pre><code>##  [1] 3.290152 2.504364 3.391074 2.281150 2.706494 2.622005 1.109460
-##  [8] 4.671826 1.985311 2.036782 2.067691 3.379312 3.261065 1.971298
-## [15] 2.363962 3.014437 2.933443 3.501578 1.322083 4.603931</code></pre>
+<pre><code>##  [1] 3.8874383 3.3742752 2.6392899 2.3725058 2.3273244 4.5078824 3.4681008
+##  [8] 3.6108506 2.5378130 3.3402221 3.6262481 3.1302873 2.7300764 1.2354712
+## [15] 2.3861682 2.6278943 3.8305700 0.4164642 2.3346869 2.9061385</code></pre>
 <pre class="r"><code>df[[2]]</code></pre>
-<pre><code>##  [1]   1.0853978  -2.3504091  -3.0882922  -3.1731324  14.9887926
-##  [6] -12.0634090   5.5097401   2.9926308   0.9239760  -0.4787874
-## [11]   1.4995619   1.1559915   6.6028529  -5.6324142   1.7312507
-## [16]   0.1001762   1.4898837  -3.4870656  -3.4122971  -0.0836077</code></pre>
+<pre><code>##  [1]  2.09403104  4.34809294 -2.52580419  6.26191711  1.49800927
+##  [6]  5.50909309 -8.04721651 -1.63985373 -0.59148248  5.93489080
+## [11]  2.72009320 -1.46005965 -5.77361129 -0.08238459 -5.30204766
+## [16] -9.24651406  9.18357989 -5.53150934 -1.79024689  4.59028748</code></pre>
 <p>In the writing functions class, we wrote a function that returns mean and standard deviation. Here it is again:</p>
 <pre class="r"><code>mean_and_sd = function(x) {
   
@@ -467,22 +467,22 @@ df$a</code></pre>
 <pre><code>## # A tibble: 1 x 2
 ##    mean    sd
 ##   &lt;dbl&gt; &lt;dbl&gt;
-## 1  2.75 0.932</code></pre>
+## 1  2.86 0.936</code></pre>
 <pre class="r"><code>mean_and_sd(df[[2]])</code></pre>
 <pre><code>## # A tibble: 1 x 2
-##    mean    sd
-##   &lt;dbl&gt; &lt;dbl&gt;
-## 1 0.216  5.35</code></pre>
+##      mean    sd
+##     &lt;dbl&gt; &lt;dbl&gt;
+## 1 0.00746  5.13</code></pre>
 <pre class="r"><code>mean_and_sd(df[[3]])</code></pre>
 <pre><code>## # A tibble: 1 x 2
 ##    mean    sd
 ##   &lt;dbl&gt; &lt;dbl&gt;
-## 1  10.0 0.248</code></pre>
+## 1 10.00 0.173</code></pre>
 <pre class="r"><code>mean_and_sd(df[[4]])</code></pre>
 <pre><code>## # A tibble: 1 x 2
 ##    mean    sd
 ##   &lt;dbl&gt; &lt;dbl&gt;
-## 1 -3.03 0.954</code></pre>
+## 1 -2.67 0.919</code></pre>
 <p>But now we’ve broken our “don’t repeat code more than twice” rule! Specifically, we’ve applied the same function / operation to the elements of a list sequentially. This is exactly the kind of code repetition for loops address.</p>
 <p>Below, I define an output list with the same number of entries as my target dataframe; a sequence to iterate over; and a for loop body that applies the mean_and_sd function for each sequence element and saves the result.</p>
 <pre class="r"><code>output = vector(&quot;list&quot;, length = 4) #give you 4 blank slots
@@ -498,25 +498,25 @@ output</code></pre>
 ## # A tibble: 1 x 2
 ##    mean    sd
 ##   &lt;dbl&gt; &lt;dbl&gt;
-## 1  2.75 0.932
+## 1  2.86 0.936
 ## 
 ## [[2]]
 ## # A tibble: 1 x 2
-##    mean    sd
-##   &lt;dbl&gt; &lt;dbl&gt;
-## 1 0.216  5.35
+##      mean    sd
+##     &lt;dbl&gt; &lt;dbl&gt;
+## 1 0.00746  5.13
 ## 
 ## [[3]]
 ## # A tibble: 1 x 2
 ##    mean    sd
 ##   &lt;dbl&gt; &lt;dbl&gt;
-## 1  10.0 0.248
+## 1 10.00 0.173
 ## 
 ## [[4]]
 ## # A tibble: 1 x 2
 ##    mean    sd
 ##   &lt;dbl&gt; &lt;dbl&gt;
-## 1 -3.03 0.954</code></pre>
+## 1 -2.67 0.919</code></pre>
 <p>This is already much cleaner than using four almost-identical lines of code, and will make life easier the larger our sequence gets.</p>
 <p>In this example, I bypassed a common first step in writing loops because I already had the function I wanted to repeat. Frequently, however, I’ll start with repeated code segements, then abstract the underlying process into a function, and then wrap things up in a for loop.</p>
 </div>
@@ -794,6 +794,34 @@ weather_nest</code></pre>
 <p>This is great! We now have a data frame that has rows for each station; columns contain weather datasets and fitted models. This makes it very easy to keep track of models across stations, and to perform additional analyses.</p>
 <p>This is, for sure, a fairly complex bit of code, but in just a few lines we’re able to fit separate linear models to each of our stations. And, once you get used to list columns, map, and the rest of it, these lines of code are pretty clear and can be extended to larger datasets with more complex structures.</p>
 </div>
+<div id="back-to-napoleon" class="section level2">
+<h2>Back to Napoleon</h2>
+<p>Earlier, we looked at scraping reviews of Napoleon Dynamite from several pages on Amazon. This required the creation of input and output vectors / lists; now we’ll repeat this using data frames and list columns.</p>
+<pre class="r"><code>napoleon = 
+  tibble(
+    page = 1:5,
+    urls = str_c(url_base, page)
+  ) %&gt;% 
+  mutate(
+    reviews = map(urls, read_page_reviews)
+  )</code></pre>
+</div>
+</div>
+<div id="other-materials" class="section level1">
+<h1>Other Materials</h1>
+<p>Iteration can be tricky – the readings below will help as you work through this!</p>
+<ul>
+<li>The <a href="http://r4ds.had.co.nz/iteration.html">chapter</a> on iteration in R for Data Science has a useful treatment of iteration using loops and map</li>
+<li>Jenny Bryan’s purrr <a href="https://jennybc.github.io/purrr-tutorial/">tutorial</a> has a lot of useful information and examples</li>
+<li>R Programming for Data Science has information on <a href="https://bookdown.org/rdpeng/rprogdatascience/control-structures.html#for-loops">loops</a> and <a href="https://bookdown.org/rdpeng/rprogdatascience/loop-functions.html">loop functions</a>; given Roger Peng’s tendency towards base R he focuses on lapply and others instead of map</li>
+<li>This <a href="https://stackoverflow.com/questions/45101045/why-use-purrrmap-instead-of-lapply">question and response</a> on stack overflow explains why one might prefer map to lapply</li>
+</ul>
+<p>List columns take some getting used to; there are some materials to help with that.</p>
+<ul>
+<li>R for Data Science has a chapter on <a href="http://r4ds.had.co.nz/many-models.html">fitting many models</a></li>
+<li>Jenny Bryan’s purrr <a href="https://jennybc.github.io/purrr-tutorial/">tutorial</a> has useful list-column examples</li>
+<li>The <a href="https://github.com/tidyverse/dplyr/blob/master/data-raw/starwars.R">R file</a> used to create the starwars dataset (in the tidyverse) using the <a href="https://swapi.co/">Star Wars API</a> processes list output (from the API) using several map variants</li>
+</ul>
 </div>
 
 
