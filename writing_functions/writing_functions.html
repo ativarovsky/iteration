@@ -370,7 +370,6 @@ summary {
 </div>
 
 
-<p><strong>NOTE: Not connected to github</strong></p>
 <div id="slides" class="section level1">
 <h1>Slides</h1>
 <p>If you’re using the same code more than once, write a function. Prevents mistakes from contnuous copy and paste.</p>
@@ -392,11 +391,11 @@ y = rnorm(n = 30, mean = 24, sd = 2.3)
 
 z_transformation = mean(x)/sd(x)
 (x_again - mean(x_again)/sd(x_again))</code></pre>
-<pre><code>##  [1] -10.86103 -11.58331 -11.25560 -11.41720 -11.32232 -11.66017 -11.46310
-##  [8] -11.05786 -11.06418 -11.50910 -11.17678 -12.38583 -11.52243 -11.59090
-## [15] -11.58604 -12.02827 -11.41868 -11.63085 -11.73049 -11.21443 -11.54275
-## [22] -11.61090 -10.96933 -12.11820 -11.27055 -11.68386 -11.37234 -11.95745
-## [29] -11.28751 -11.18896</code></pre>
+<pre><code>##  [1] -11.64335 -12.01786 -11.88689 -11.69482 -11.93753 -11.48376 -11.50178
+##  [8] -11.63497 -11.97472 -11.90382 -11.91436 -11.19202 -11.65160 -11.38685
+## [15] -11.81766 -11.54384 -11.48197 -12.62093 -11.00565 -11.59721 -11.49258
+## [22] -11.15602 -11.71705 -12.21319 -11.61464 -11.97750 -11.74073 -12.22179
+## [29] -11.83899 -12.14739</code></pre>
 <p>To avoid the above, write a function:</p>
 <pre class="r"><code># here, x is what we're calling whatever we put in the function and z_score is the name of the function. 
 
@@ -406,26 +405,26 @@ z_score = function(x) {
 }</code></pre>
 <p>Now we try out the function.</p>
 <pre class="r"><code>z_score(x)</code></pre>
-<pre><code>##  [1] -1.94991564 -0.55195105 -1.24448340 -1.38421096 -0.52963558
-##  [6]  0.89859667 -0.88552829  1.00779588  0.21191861  0.55567250
-## [11]  2.11632864 -0.63286361  0.23497806 -0.12094026 -0.31386364
-## [16]  0.19036916  0.90190871  0.09454086  0.82658756  0.15162346
-## [21] -1.27781795  0.76604229 -0.49300569 -0.34838934 -0.99914505
-## [26]  1.38198291  1.81935068 -0.61902585 -0.99209200  1.18517233</code></pre>
+<pre><code>##  [1] -0.07808671  1.34679493 -0.84632155  1.59781092  1.39770647
+##  [6] -1.39926989  0.24617461  1.00376757 -0.80055685 -0.39729473
+## [11] -0.80182110  0.41083636 -2.01757531  0.44363176  1.02711338
+## [16]  0.12858321  1.48356755 -0.93629567  1.48565496 -0.74223161
+## [21] -0.46443031 -0.60564690 -1.30852428 -1.16703020  0.01562630
+## [26]  1.35201615 -0.18001475 -0.50026013 -0.25417468  0.56025050</code></pre>
 <pre class="r"><code>z_score(x = x) # same thing as above </code></pre>
-<pre><code>##  [1] -1.94991564 -0.55195105 -1.24448340 -1.38421096 -0.52963558
-##  [6]  0.89859667 -0.88552829  1.00779588  0.21191861  0.55567250
-## [11]  2.11632864 -0.63286361  0.23497806 -0.12094026 -0.31386364
-## [16]  0.19036916  0.90190871  0.09454086  0.82658756  0.15162346
-## [21] -1.27781795  0.76604229 -0.49300569 -0.34838934 -0.99914505
-## [26]  1.38198291  1.81935068 -0.61902585 -0.99209200  1.18517233</code></pre>
+<pre><code>##  [1] -0.07808671  1.34679493 -0.84632155  1.59781092  1.39770647
+##  [6] -1.39926989  0.24617461  1.00376757 -0.80055685 -0.39729473
+## [11] -0.80182110  0.41083636 -2.01757531  0.44363176  1.02711338
+## [16]  0.12858321  1.48356755 -0.93629567  1.48565496 -0.74223161
+## [21] -0.46443031 -0.60564690 -1.30852428 -1.16703020  0.01562630
+## [26]  1.35201615 -0.18001475 -0.50026013 -0.25417468  0.56025050</code></pre>
 <pre class="r"><code>z_score(x = y)</code></pre>
-<pre><code>##  [1] -0.69752148  1.47998292 -0.26284852  0.66952828 -0.89082194
-##  [6] -0.44490489  0.09064524  1.08071774 -0.28463969 -0.49767681
-## [11] -2.07614481  0.89637610  0.10009620  2.27008099  1.03208661
-## [16] -1.84090501 -0.13578853 -0.84006994  1.16325000  0.54044374
-## [21] -1.06471364  0.43033222  0.26622279 -0.62170101  0.56055443
-## [26] -0.23538624  0.48637822  1.00688421 -0.62368973 -1.55676746</code></pre>
+<pre><code>##  [1]  0.26657529 -0.80889490  1.60803220  0.29686124 -0.06158641
+##  [6] -0.68699243  0.48796462 -0.07049469 -1.03122845  1.08314809
+## [11] -0.81349120  0.08334180  0.48401110 -0.16583467 -0.38769692
+## [16]  0.26405026 -0.98336952 -0.65556807  0.69521067 -0.02177673
+## [21] -1.37534171 -0.22161158  1.92893000  2.39459585  0.05056966
+## [26]  0.48585706  0.08620391 -1.78005907  0.86323963 -2.01464504</code></pre>
 <pre class="r"><code>z_score(x = 3)</code></pre>
 <pre><code>## [1] NA</code></pre>
 <pre class="r"><code>z_score(x = &quot;my name is alice&quot;)</code></pre>
@@ -445,12 +444,12 @@ z_score = function(x) {
 }</code></pre>
 <p>Running again:</p>
 <pre class="r"><code>z_score(x)</code></pre>
-<pre><code>##  [1] -1.94991564 -0.55195105 -1.24448340 -1.38421096 -0.52963558
-##  [6]  0.89859667 -0.88552829  1.00779588  0.21191861  0.55567250
-## [11]  2.11632864 -0.63286361  0.23497806 -0.12094026 -0.31386364
-## [16]  0.19036916  0.90190871  0.09454086  0.82658756  0.15162346
-## [21] -1.27781795  0.76604229 -0.49300569 -0.34838934 -0.99914505
-## [26]  1.38198291  1.81935068 -0.61902585 -0.99209200  1.18517233</code></pre>
+<pre><code>##  [1] -0.07808671  1.34679493 -0.84632155  1.59781092  1.39770647
+##  [6] -1.39926989  0.24617461  1.00376757 -0.80055685 -0.39729473
+## [11] -0.80182110  0.41083636 -2.01757531  0.44363176  1.02711338
+## [16]  0.12858321  1.48356755 -0.93629567  1.48565496 -0.74223161
+## [21] -0.46443031 -0.60564690 -1.30852428 -1.16703020  0.01562630
+## [26]  1.35201615 -0.18001475 -0.50026013 -0.25417468  0.56025050</code></pre>
 <pre class="r"><code>z_score(x = 3)</code></pre>
 <pre><code>## Error in z_score(x = 3): Z scores cannot be computed for length 1 vectors</code></pre>
 <pre class="r"><code>z_score(x = &quot;my name is alice&quot;)</code></pre>
@@ -479,7 +478,7 @@ z_score = function(x) {
 <pre><code>## # A tibble: 1 x 2
 ##   mean_x  sd_x
 ##    &lt;dbl&gt; &lt;dbl&gt;
-## 1   23.8  1.69</code></pre>
+## 1   24.0  2.25</code></pre>
 <p>Note that above, when we used a tibble, we chould have also used a list. Lists are cool because they allow you to keep track of things that aren’t numbers.</p>
 <p>In general, either of these will be fine; which one you choose will depend on what kind of values you want to return, and what you plan to do with the function itself. If you want to return the original sample along with the computed values, a list might make sense; if you plan to run your function a lot and study the results, having a data frame will make it easier to use other tools. We’ll see more of that in iteration and simulation.</p>
 </div>
@@ -519,7 +518,7 @@ sim_regression(n = 3000, beta0 = 17, beta1 = -3) #note that we don't have to wri
 <pre><code>## # A tibble: 1 x 2
 ##   beta0_hat beta1_hat
 ##       &lt;dbl&gt;     &lt;dbl&gt;
-## 1      17.0     -2.96</code></pre>
+## 1      17.0     -3.03</code></pre>
 </div>
 <div id="scrape-lots-of-napoleon" class="section level2">
 <h2>Scrape lots of Napoleon</h2>
@@ -605,10 +604,10 @@ f(x = y)</code></pre>
 <div id="other-materials" class="section level1">
 <h1>Other Materials</h1>
 <ul>
-<li>There are chapters on functions in <a href="http://r4ds.had.co.nz/functions.html">R for Data Science</a> and Advanced R</li>
-<li>Jenny Bryan has a three part series on writing functions (each part is short)</li>
-<li>R Programming for Data Science has nice chapters on functions and scoping</li>
-<li>The Basics of UNIX Philosophy, linked to above, apply broadly to designing code</li>
+<li>There are chapters on functions in <a href="http://r4ds.had.co.nz/functions.html">R for Data Science</a> and <a href="http://adv-r.had.co.nz/Functions.html">Advanced R</a></li>
+<li>Jenny Bryan has a <a href="http://stat545.com/block011_write-your-own-function-01.html">three</a> <a href="http://stat545.com/block011_write-your-own-function-02.html">part</a> <a href="http://stat545.com/block011_write-your-own-function-03.html">series</a> on writing functions (each part is short)</li>
+<li>R Programming for Data Science has nice chapters on <a href="http://stat545.com/block011_write-your-own-function-03.html">functions</a> and <a href="https://bookdown.org/rdpeng/rprogdatascience/scoping-rules-of-r.html">scoping</a></li>
+<li>The <a href="http://www.faqs.org/docs/artu/ch01s06.html">Basics of UNIX Philosophy</a>, linked to above, apply broadly to designing code</li>
 </ul>
 </div>
 

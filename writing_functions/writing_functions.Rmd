@@ -4,7 +4,6 @@ author: "Alice Tivarovsky"
 date: "10/24/2019"
 output: html_document
 ---
-**NOTE: Not connected to github**
 
 # Slides
 
@@ -260,8 +259,8 @@ Examples like this are tricky, but emphasize an issue that comes up a lot in wri
 
 # Other Materials 
 
-- There are chapters on functions in [R for Data Science](http://r4ds.had.co.nz/functions.html) and Advanced R
-- Jenny Bryan has a three part series on writing functions (each part is short)
-- R Programming for Data Science has nice chapters on functions and scoping
-- The Basics of UNIX Philosophy, linked to above, apply broadly to designing code
+- There are chapters on functions in [R for Data Science](http://r4ds.had.co.nz/functions.html) and [Advanced R](http://adv-r.had.co.nz/Functions.html)
+- Jenny Bryan has a [three](http://stat545.com/block011_write-your-own-function-01.html) [part](http://stat545.com/block011_write-your-own-function-02.html) [series](http://stat545.com/block011_write-your-own-function-03.html) on writing functions (each part is short)
+- R Programming for Data Science has nice chapters on [functions](http://stat545.com/block011_write-your-own-function-03.html) and [scoping](https://bookdown.org/rdpeng/rprogdatascience/scoping-rules-of-r.html)
+- The [Basics of UNIX Philosophy](http://www.faqs.org/docs/artu/ch01s06.html), linked to above, apply broadly to designing code
 
