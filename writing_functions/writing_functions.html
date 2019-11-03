@@ -392,11 +392,11 @@ y = rnorm(n = 30, mean = 24, sd = 2.3)
 
 z_transformation = mean(x)/sd(x)
 (x_again - mean(x_again)/sd(x_again))</code></pre>
-<pre><code>##  [1] -16.63624 -17.20074 -16.50019 -17.38853 -16.96334 -17.22458 -16.90759
-##  [8] -16.81693 -17.11560 -17.19590 -16.54071 -16.86462 -16.89910 -16.75628
-## [15] -17.29254 -16.94115 -17.36896 -17.26814 -17.30176 -17.45606 -17.25363
-## [22] -17.17753 -17.21555 -17.34929 -16.84632 -16.82187 -17.24867 -17.25068
-## [29] -17.14815 -17.09579</code></pre>
+<pre><code>##  [1] -10.86103 -11.58331 -11.25560 -11.41720 -11.32232 -11.66017 -11.46310
+##  [8] -11.05786 -11.06418 -11.50910 -11.17678 -12.38583 -11.52243 -11.59090
+## [15] -11.58604 -12.02827 -11.41868 -11.63085 -11.73049 -11.21443 -11.54275
+## [22] -11.61090 -10.96933 -12.11820 -11.27055 -11.68386 -11.37234 -11.95745
+## [29] -11.28751 -11.18896</code></pre>
 <p>To avoid the above, write a function:</p>
 <pre class="r"><code># here, x is what we're calling whatever we put in the function and z_score is the name of the function. 
 
@@ -406,26 +406,26 @@ z_score = function(x) {
 }</code></pre>
 <p>Now we try out the function.</p>
 <pre class="r"><code>z_score(x)</code></pre>
-<pre><code>##  [1]  1.58915759  1.01285118 -0.89344218  0.90061328  0.81399744
-##  [6]  0.69189386  0.18037620  0.29168454 -0.31288816  0.51363810
-## [11] -1.75917382 -0.08676295  1.64914328 -0.49030449 -0.44661340
-## [16] -0.75007356 -0.48326675  0.02271383  0.59637512  0.71258190
-## [21] -0.32557972 -0.60922863 -0.58739417 -1.25440244 -1.53134929
-## [26]  0.18440017  0.85667771 -0.05617951  1.87008405 -2.29952918</code></pre>
+<pre><code>##  [1] -1.94991564 -0.55195105 -1.24448340 -1.38421096 -0.52963558
+##  [6]  0.89859667 -0.88552829  1.00779588  0.21191861  0.55567250
+## [11]  2.11632864 -0.63286361  0.23497806 -0.12094026 -0.31386364
+## [16]  0.19036916  0.90190871  0.09454086  0.82658756  0.15162346
+## [21] -1.27781795  0.76604229 -0.49300569 -0.34838934 -0.99914505
+## [26]  1.38198291  1.81935068 -0.61902585 -0.99209200  1.18517233</code></pre>
 <pre class="r"><code>z_score(x = x) # same thing as above </code></pre>
-<pre><code>##  [1]  1.58915759  1.01285118 -0.89344218  0.90061328  0.81399744
-##  [6]  0.69189386  0.18037620  0.29168454 -0.31288816  0.51363810
-## [11] -1.75917382 -0.08676295  1.64914328 -0.49030449 -0.44661340
-## [16] -0.75007356 -0.48326675  0.02271383  0.59637512  0.71258190
-## [21] -0.32557972 -0.60922863 -0.58739417 -1.25440244 -1.53134929
-## [26]  0.18440017  0.85667771 -0.05617951  1.87008405 -2.29952918</code></pre>
+<pre><code>##  [1] -1.94991564 -0.55195105 -1.24448340 -1.38421096 -0.52963558
+##  [6]  0.89859667 -0.88552829  1.00779588  0.21191861  0.55567250
+## [11]  2.11632864 -0.63286361  0.23497806 -0.12094026 -0.31386364
+## [16]  0.19036916  0.90190871  0.09454086  0.82658756  0.15162346
+## [21] -1.27781795  0.76604229 -0.49300569 -0.34838934 -0.99914505
+## [26]  1.38198291  1.81935068 -0.61902585 -0.99209200  1.18517233</code></pre>
 <pre class="r"><code>z_score(x = y)</code></pre>
-<pre><code>##  [1] -0.98482316 -0.74692023 -0.65636511  1.32640751 -1.21500541
-##  [6] -1.81131389 -0.55886153  0.02737317  0.15935867  2.01415820
-## [11]  1.04570257 -0.65252040  1.19299646 -0.32919270 -0.30423570
-## [16]  1.12604146  1.06998447 -0.34609488  0.64764663  0.55464769
-## [21]  0.77655564 -1.88735117 -0.96947982  1.46845096 -0.83182539
-## [26]  0.11614620 -0.95970584  0.90211345 -0.01708509 -0.15680275</code></pre>
+<pre><code>##  [1] -0.69752148  1.47998292 -0.26284852  0.66952828 -0.89082194
+##  [6] -0.44490489  0.09064524  1.08071774 -0.28463969 -0.49767681
+## [11] -2.07614481  0.89637610  0.10009620  2.27008099  1.03208661
+## [16] -1.84090501 -0.13578853 -0.84006994  1.16325000  0.54044374
+## [21] -1.06471364  0.43033222  0.26622279 -0.62170101  0.56055443
+## [26] -0.23538624  0.48637822  1.00688421 -0.62368973 -1.55676746</code></pre>
 <pre class="r"><code>z_score(x = 3)</code></pre>
 <pre><code>## [1] NA</code></pre>
 <pre class="r"><code>z_score(x = &quot;my name is alice&quot;)</code></pre>
@@ -445,12 +445,12 @@ z_score = function(x) {
 }</code></pre>
 <p>Running again:</p>
 <pre class="r"><code>z_score(x)</code></pre>
-<pre><code>##  [1]  1.58915759  1.01285118 -0.89344218  0.90061328  0.81399744
-##  [6]  0.69189386  0.18037620  0.29168454 -0.31288816  0.51363810
-## [11] -1.75917382 -0.08676295  1.64914328 -0.49030449 -0.44661340
-## [16] -0.75007356 -0.48326675  0.02271383  0.59637512  0.71258190
-## [21] -0.32557972 -0.60922863 -0.58739417 -1.25440244 -1.53134929
-## [26]  0.18440017  0.85667771 -0.05617951  1.87008405 -2.29952918</code></pre>
+<pre><code>##  [1] -1.94991564 -0.55195105 -1.24448340 -1.38421096 -0.52963558
+##  [6]  0.89859667 -0.88552829  1.00779588  0.21191861  0.55567250
+## [11]  2.11632864 -0.63286361  0.23497806 -0.12094026 -0.31386364
+## [16]  0.19036916  0.90190871  0.09454086  0.82658756  0.15162346
+## [21] -1.27781795  0.76604229 -0.49300569 -0.34838934 -0.99914505
+## [26]  1.38198291  1.81935068 -0.61902585 -0.99209200  1.18517233</code></pre>
 <pre class="r"><code>z_score(x = 3)</code></pre>
 <pre><code>## Error in z_score(x = 3): Z scores cannot be computed for length 1 vectors</code></pre>
 <pre class="r"><code>z_score(x = &quot;my name is alice&quot;)</code></pre>
@@ -479,7 +479,7 @@ z_score = function(x) {
 <pre><code>## # A tibble: 1 x 2
 ##   mean_x  sd_x
 ##    &lt;dbl&gt; &lt;dbl&gt;
-## 1   23.7  2.54</code></pre>
+## 1   23.8  1.69</code></pre>
 <p>Note that above, when we used a tibble, we chould have also used a list. Lists are cool because they allow you to keep track of things that aren’t numbers.</p>
 <p>In general, either of these will be fine; which one you choose will depend on what kind of values you want to return, and what you plan to do with the function itself. If you want to return the original sample along with the computed values, a list might make sense; if you plan to run your function a lot and study the results, having a data frame will make it easier to use other tools. We’ll see more of that in iteration and simulation.</p>
 </div>
@@ -519,11 +519,97 @@ sim_regression(n = 3000, beta0 = 17, beta1 = -3) #note that we don't have to wri
 <pre><code>## # A tibble: 1 x 2
 ##   beta0_hat beta1_hat
 ##       &lt;dbl&gt;     &lt;dbl&gt;
-## 1      17.0     -2.99</code></pre>
+## 1      17.0     -2.96</code></pre>
+</div>
+<div id="scrape-lots-of-napoleon" class="section level2">
+<h2>Scrape lots of Napoleon</h2>
+<p>Here we revisit the amazon reviews for Napoleon Dynamite. The code we wrote in the scraping lecture only works for the first page of reviews.</p>
+<pre class="r"><code>url = &quot;https://www.amazon.com/product-reviews/B00005JNBQ/ref=cm_cr_arp_d_viewopt_rvwer?ie=UTF8&amp;reviewerType=avp_only_reviews&amp;sortBy=recent&amp;pageNumber=1&quot;
+
+dynamite_html = read_html(url)
+
+review_titles = dynamite_html %&gt;%
+  html_nodes(&quot;#cm_cr-review_list .review-title&quot;) %&gt;%
+  html_text()
+
+review_stars = dynamite_html %&gt;%
+  html_nodes(&quot;#cm_cr-review_list .review-rating&quot;) %&gt;%
+  html_text()
+
+review_text = dynamite_html %&gt;%
+    html_nodes(&quot;.review-data:nth-child(4)&quot;) %&gt;%
+    html_text()
+
+reviews = tibble(
+  title = review_titles,
+  stars = review_stars,
+  text = review_text
+)</code></pre>
+<p>We now write a function that will pull in every page of reviews. We start by copying and pasting the function.</p>
+<pre class="r"><code>read_page_reviews = function(page_url) {
+
+dynamite_html = read_html(url)
+
+review_titles = dynamite_html %&gt;%
+  html_nodes(&quot;#cm_cr-review_list .review-title&quot;) %&gt;%
+  html_text()
+
+review_stars = dynamite_html %&gt;%
+  html_nodes(&quot;#cm_cr-review_list .review-rating&quot;) %&gt;%
+  html_text()
+
+review_text = dynamite_html %&gt;%
+    html_nodes(&quot;.review-data:nth-child(4)&quot;) %&gt;%
+    html_text()
+
+reviews = tibble(
+  title = review_titles,
+  stars = review_stars,
+  text = review_text
+) 
+reviews 
+
+}</code></pre>
+<p>Testing out the function, you just have to update the page number at the very end of the url, plut &amp; chug.</p>
+<pre class="r"><code>read_page_reviews(&quot;https://www.amazon.com/product-reviews/B00005JNBQ/ref=cm_cr_arp_d_viewopt_rvwer?ie=UTF8&amp;reviewerType=avp_only_reviews&amp;sortBy=recent&amp;pageNumber=3&quot; )</code></pre>
+<pre><code>## # A tibble: 10 x 3
+##    title                           stars         text                      
+##    &lt;chr&gt;                           &lt;chr&gt;         &lt;chr&gt;                     
+##  1 &quot;Awesome\n            &quot;         5.0 out of 5… Format: Prime VideoVerifi…
+##  2 &quot;Gotta watch it!\n            &quot; 5.0 out of 5… Format: Prime VideoVerifi…
+##  3 &quot;Great movie\n            &quot;     5.0 out of 5… Format: Blu-rayVerified P…
+##  4 &quot;Duh\n            &quot;             5.0 out of 5… Format: Prime VideoVerifi…
+##  5 &quot;Great video\n            &quot;     5.0 out of 5… Format: DVDVerified Purch…
+##  6 &quot;Give me some of your tots\n  … 5.0 out of 5… Format: Prime VideoVerifi…
+##  7 &quot;Nostalgic\n            &quot;       5.0 out of 5… Format: Prime VideoVerifi…
+##  8 &quot;Make you giggle type movie\n … 5.0 out of 5… Format: Blu-rayVerified P…
+##  9 &quot;This movie is so stupid.\n   … 5.0 out of 5… Format: Prime VideoVerifi…
+## 10 &quot;Hilarious\n            &quot;       5.0 out of 5… Format: Prime VideoVerifi…</code></pre>
+</div>
+<div id="scoping-and-names" class="section level2">
+<h2>Scoping and Names</h2>
+<p>Take a look at the code below. Will the call f(x = y) work? If so, what will it produce? What is the current value of x, y, and z?</p>
+<pre class="r"><code>f = function(x) {
+  z = x + y
+  z
+}
+
+x = 1
+y = 2
+
+f(x = y)</code></pre>
+<pre><code>## [1] 4</code></pre>
+<p>Examples like this are tricky, but emphasize an issue that comes up a lot in writing functions: you define a variable in your global environment and use it in your function, but it isn’t passed as an argument. This is easy to miss, especially when you go from code written in chunks to a function, and can be hard to track down if you empty your working directory or change a variable name. The best advice I have is to give your arguments useful names and think carefully about where everything is defined, and to periodically restart R and try everything again!</p>
 </div>
 </div>
-<div id="argument-names-and-scoping" class="section level1">
-<h1>Argument names and scoping</h1>
+<div id="other-materials" class="section level1">
+<h1>Other Materials</h1>
+<ul>
+<li>There are chapters on functions in <a href="http://r4ds.had.co.nz/functions.html">R for Data Science</a> and Advanced R</li>
+<li>Jenny Bryan has a three part series on writing functions (each part is short)</li>
+<li>R Programming for Data Science has nice chapters on functions and scoping</li>
+<li>The Basics of UNIX Philosophy, linked to above, apply broadly to designing code</li>
+</ul>
 </div>
 
 

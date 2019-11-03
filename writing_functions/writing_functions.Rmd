@@ -179,9 +179,89 @@ sim_regression(n = 3000, beta0 = 17, beta1 = -3) #note that we don't have to wri
 ```
 
 
-# Argument names and scoping 
+## Scrape lots of Napoleon
+
+Here we revisit the amazon reviews for Napoleon Dynamite. The code we wrote in the scraping lecture only works for the first page of reviews.  
+```{r}
+url = "https://www.amazon.com/product-reviews/B00005JNBQ/ref=cm_cr_arp_d_viewopt_rvwer?ie=UTF8&reviewerType=avp_only_reviews&sortBy=recent&pageNumber=1"
+
+dynamite_html = read_html(url)
+
+review_titles = dynamite_html %>%
+  html_nodes("#cm_cr-review_list .review-title") %>%
+  html_text()
+
+review_stars = dynamite_html %>%
+  html_nodes("#cm_cr-review_list .review-rating") %>%
+  html_text()
+
+review_text = dynamite_html %>%
+    html_nodes(".review-data:nth-child(4)") %>%
+    html_text()
+
+reviews = tibble(
+  title = review_titles,
+  stars = review_stars,
+  text = review_text
+)
+```
+
+We now write a function that will pull in every page of reviews. We start by copying and pasting the function. 
 
 ```{r}
+read_page_reviews = function(page_url) {
 
+dynamite_html = read_html(url)
+
+review_titles = dynamite_html %>%
+  html_nodes("#cm_cr-review_list .review-title") %>%
+  html_text()
+
+review_stars = dynamite_html %>%
+  html_nodes("#cm_cr-review_list .review-rating") %>%
+  html_text()
+
+review_text = dynamite_html %>%
+    html_nodes(".review-data:nth-child(4)") %>%
+    html_text()
+
+reviews = tibble(
+  title = review_titles,
+  stars = review_stars,
+  text = review_text
+) 
+reviews 
+
+}
 ```
+
+Testing out the function, you just have to update the page number at the very end of the url, plut & chug. 
+```{r}
+read_page_reviews("https://www.amazon.com/product-reviews/B00005JNBQ/ref=cm_cr_arp_d_viewopt_rvwer?ie=UTF8&reviewerType=avp_only_reviews&sortBy=recent&pageNumber=3" )
+```
+
+## Scoping and Names 
+
+Take a look at the code below. Will the call f(x = y) work? If so, what will it produce? What is the current value of x, y, and z?
+
+```{r}
+f = function(x) {
+  z = x + y
+  z
+}
+
+x = 1
+y = 2
+
+f(x = y)
+```
+
+Examples like this are tricky, but emphasize an issue that comes up a lot in writing functions: you define a variable in your global environment and use it in your function, but it isn’t passed as an argument. This is easy to miss, especially when you go from code written in chunks to a function, and can be hard to track down if you empty your working directory or change a variable name. The best advice I have is to give your arguments useful names and think carefully about where everything is defined, and to periodically restart R and try everything again!
+
+# Other Materials 
+
+- There are chapters on functions in [R for Data Science](http://r4ds.had.co.nz/functions.html) and Advanced R
+- Jenny Bryan has a three part series on writing functions (each part is short)
+- R Programming for Data Science has nice chapters on functions and scoping
+- The Basics of UNIX Philosophy, linked to above, apply broadly to designing code
 
