@@ -8,14 +8,15 @@ output: html_document
 
 # Slides
 
+
 ###For loops 
-Loops consist of an output object; a sequence to iterate over; the loop body; and (optionally) an input object. For loops are hard to work with but purr package makes for loops easier using maps. 
+Loops consist of an output object; a sequence to iterate over; the loop body; and (optionally) an input object. For loops are hard to work with but purr package makes for loops easier using map s.  
 
 Basic structure: output = map(input, f)
 
 
 ###Lists
-Lists hold everything. They give you a way to mix different data types (dbl vectors, string vectors, data frames, etc.). Dataframes are a special type of list - one that is formatted in a rectangle. 
+Lists hold everything. They give you a way to mix different data types (dbl vectors, string vectors, data frames, etc.). Dataframes are a special type of list - one that is formatted as a rectangle. 
 
 You can even put lists inside of lists - these are called list columns. This makes data easier to work with (even though it's hard to understand in the beginning). 
 
@@ -30,8 +31,6 @@ library(rvest)
 knitr::opts_chunk$set(
 	echo = TRUE,
 	warning = FALSE,
-	fig.width = 8, 
-  fig.height = 6,
   out.width = "90%"
 )
 options(
@@ -55,6 +54,113 @@ l = list(vec_numeric = 5:8,
          summary     = summary(rnorm(1000)))
 l
 ```
+
+We can pull stuff out of the list: 
+
+```{r}
+l$vec_numeric
+
+l$summary
+# you can also use the index
+l[[2]]
+
+#you can take a mean, do whatever
+mean(l$vec_numeric)
+
+```
+
+Lists seem bizarre but are really useful. Right now, we’ll use them to hold general inputs and outputs of iterative processes. Even more importantly, we’ll see that data frames are actually a very specific kind of list – one comprised of vectors of the same length – which is why they can store variables of different types.
+
+
+## For Loops
+
+For this example, I’m going to start with the pretty simple data frame defined below, and confirm that “under the hood” this is a list.
+```{r}
+df = list(
+  a = rnorm(20, 3, 1),
+  b = rnorm(20, 0, 5),
+  c = rnorm(20, 10, .2),
+  d = rnorm(20, -3, 1)
+)
+
+#pulling stuff out of the list
+df$a
+df[[2]]
+```
+
+In the writing functions class, we wrote a function that returns mean and standard deviation. Here it is again: 
+```{r}
+mean_and_sd = function(x) {
+  
+  if (!is.numeric(x)) {
+    stop("Argument x should be numeric")
+  } else if (length(x) == 1) {
+    stop("Cannot be computed for length 1 vectors")
+  }
+  
+  mean_x = mean(x)
+  sd_x = sd(x)
+
+  tibble(
+    mean = mean_x, 
+    sd = sd_x
+  )
+}
+```
+
+Now, say we want to apply the function to every element in the list. We could do something like this: 
+```{r}
+mean_and_sd(df[[1]])
+mean_and_sd(df[[2]])
+mean_and_sd(df[[3]])
+mean_and_sd(df[[4]])
+
+```
+But now we’ve broken our “don’t repeat code more than twice” rule! Specifically, we’ve applied the same function / operation to the elements of a list sequentially. This is exactly the kind of code repetition for loops address. 
+
+Below, I define an output list with the same number of entries as my target dataframe; a sequence to iterate over; and a for loop body that applies the mean_and_sd function for each sequence element and saves the result.
+```{r}
+output = vector("list", length = 4) #give you 4 blank slots
+
+# now the for loop
+for (i in 1:4) {
+  
+  output[[i]] = mean_and_sd(df[[i]])
+  
+}
+output
+```
+
+This is already much cleaner than using four almost-identical lines of code, and will make life easier the larger our sequence gets.
+
+In this example, I bypassed a common first step in writing loops because I already had the function I wanted to repeat. Frequently, however, I’ll start with repeated code segements, then abstract the underlying process into a function, and then wrap things up in a for loop.
+
+## Map
+
+A criticism of for loops is that there’s a lot of overhead – you have to define your output vector / list, there’s the for loop bookkeeping to do, etc – that distracts from the purpose of the code. In this case, we want to apply mean_and_sd to each column of df, but we have to scan inside the for loop to figure that out.
+
+The map functions in purrr try to make the purpose of your code clear. Compare the loop above to the line below.
+
+```{r}
+output = map(df, mean_and_sd)
+```
+
+You can do the same thing for any function: 
+```{r}
+output = map(df, mean_and_sd)
+
+output = map(df, median)
+
+output = map(df, summary) #this is a special summary function we talked about before
+```
+
+
+
+
+
+
+
+
 
 
  

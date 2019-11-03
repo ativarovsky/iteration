@@ -372,9 +372,9 @@ summary {
 
 <div id="slides" class="section level1">
 <h1>Slides</h1>
-<p>###For loops Loops consist of an output object; a sequence to iterate over; the loop body; and (optionally) an input object. For loops are hard to work with but purr package makes for loops easier using maps.</p>
+<p>###For loops Loops consist of an output object; a sequence to iterate over; the loop body; and (optionally) an input object. For loops are hard to work with but purr package makes for loops easier using map s.</p>
 <p>Basic structure: output = map(input, f)</p>
-<p>###Lists Lists hold everything. They give you a way to mix different data types (dbl vectors, string vectors, data frames, etc.). Dataframes are a special type of list - one that is formatted in a rectangle.</p>
+<p>###Lists Lists hold everything. They give you a way to mix different data types (dbl vectors, string vectors, data frames, etc.). Dataframes are a special type of list - one that is formatted as a rectangle.</p>
 <p>You can even put lists inside of lists - these are called list columns. This makes data easier to work with (even though it’s hard to understand in the beginning).</p>
 <p>#Examples</p>
 <p>Setup code:</p>
@@ -399,8 +399,130 @@ l</code></pre>
 ## [1]  TRUE FALSE
 ## 
 ## $summary
-##      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
-## -2.847752 -0.606766  0.004895  0.034571  0.690770  3.458383</code></pre>
+##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+## -2.82450 -0.63080  0.03694  0.04792  0.75057  3.22777</code></pre>
+<p>We can pull stuff out of the list:</p>
+<pre class="r"><code>l$vec_numeric</code></pre>
+<pre><code>## [1] 5 6 7 8</code></pre>
+<pre class="r"><code>l$summary</code></pre>
+<pre><code>##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+## -2.82450 -0.63080  0.03694  0.04792  0.75057  3.22777</code></pre>
+<pre class="r"><code># you can also use the index
+l[[2]]</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    1    3    5    7
+## [2,]    2    4    6    8</code></pre>
+<pre class="r"><code>#you can take a mean, do whatever
+mean(l$vec_numeric)</code></pre>
+<pre><code>## [1] 6.5</code></pre>
+<p>Lists seem bizarre but are really useful. Right now, we’ll use them to hold general inputs and outputs of iterative processes. Even more importantly, we’ll see that data frames are actually a very specific kind of list – one comprised of vectors of the same length – which is why they can store variables of different types.</p>
+</div>
+<div id="for-loops" class="section level2">
+<h2>For Loops</h2>
+<p>For this example, I’m going to start with the pretty simple data frame defined below, and confirm that “under the hood” this is a list.</p>
+<pre class="r"><code>df = list(
+  a = rnorm(20, 3, 1),
+  b = rnorm(20, 0, 5),
+  c = rnorm(20, 10, .2),
+  d = rnorm(20, -3, 1)
+)
+
+#pulling stuff out of the list
+df$a</code></pre>
+<pre><code>##  [1] 1.682662 3.052515 3.652305 2.155949 3.028225 4.074863 2.803058
+##  [8] 2.469925 2.391144 2.615778 2.104123 3.964683 3.612575 3.017619
+## [15] 2.479443 3.151382 3.779231 2.851061 4.075272 1.212075</code></pre>
+<pre class="r"><code>df[[2]]</code></pre>
+<pre><code>##  [1]   1.9477411  -0.1438394   1.7396198   4.9551572  -5.5211305
+##  [6]   2.4824764  -3.2377736  -6.4336970 -11.3649004 -10.4202802
+## [11]  -4.1989221  -3.3135711  -5.1920156  -3.8161479  -1.9879057
+## [16]  -4.1782085  -4.8424980   4.4678293  -2.6251315  -7.9405485</code></pre>
+<p>In the writing functions class, we wrote a function that returns mean and standard deviation. Here it is again:</p>
+<pre class="r"><code>mean_and_sd = function(x) {
+  
+  if (!is.numeric(x)) {
+    stop(&quot;Argument x should be numeric&quot;)
+  } else if (length(x) == 1) {
+    stop(&quot;Cannot be computed for length 1 vectors&quot;)
+  }
+  
+  mean_x = mean(x)
+  sd_x = sd(x)
+
+  tibble(
+    mean = mean_x, 
+    sd = sd_x
+  )
+}</code></pre>
+<p>Now, say we want to apply the function to every element in the list. We could do something like this:</p>
+<pre class="r"><code>mean_and_sd(df[[1]])</code></pre>
+<pre><code>## # A tibble: 1 x 2
+##    mean    sd
+##   &lt;dbl&gt; &lt;dbl&gt;
+## 1  2.91 0.798</code></pre>
+<pre class="r"><code>mean_and_sd(df[[2]])</code></pre>
+<pre><code>## # A tibble: 1 x 2
+##    mean    sd
+##   &lt;dbl&gt; &lt;dbl&gt;
+## 1 -2.98  4.50</code></pre>
+<pre class="r"><code>mean_and_sd(df[[3]])</code></pre>
+<pre><code>## # A tibble: 1 x 2
+##    mean    sd
+##   &lt;dbl&gt; &lt;dbl&gt;
+## 1  10.0 0.190</code></pre>
+<pre class="r"><code>mean_and_sd(df[[4]])</code></pre>
+<pre><code>## # A tibble: 1 x 2
+##    mean    sd
+##   &lt;dbl&gt; &lt;dbl&gt;
+## 1 -3.04  1.15</code></pre>
+<p>But now we’ve broken our “don’t repeat code more than twice” rule! Specifically, we’ve applied the same function / operation to the elements of a list sequentially. This is exactly the kind of code repetition for loops address.</p>
+<p>Below, I define an output list with the same number of entries as my target dataframe; a sequence to iterate over; and a for loop body that applies the mean_and_sd function for each sequence element and saves the result.</p>
+<pre class="r"><code>output = vector(&quot;list&quot;, length = 4) #give you 4 blank slots
+
+# now the for loop
+for (i in 1:4) {
+  
+  output[[i]] = mean_and_sd(df[[i]])
+  
+}
+output</code></pre>
+<pre><code>## [[1]]
+## # A tibble: 1 x 2
+##    mean    sd
+##   &lt;dbl&gt; &lt;dbl&gt;
+## 1  2.91 0.798
+## 
+## [[2]]
+## # A tibble: 1 x 2
+##    mean    sd
+##   &lt;dbl&gt; &lt;dbl&gt;
+## 1 -2.98  4.50
+## 
+## [[3]]
+## # A tibble: 1 x 2
+##    mean    sd
+##   &lt;dbl&gt; &lt;dbl&gt;
+## 1  10.0 0.190
+## 
+## [[4]]
+## # A tibble: 1 x 2
+##    mean    sd
+##   &lt;dbl&gt; &lt;dbl&gt;
+## 1 -3.04  1.15</code></pre>
+<p>This is already much cleaner than using four almost-identical lines of code, and will make life easier the larger our sequence gets.</p>
+<p>In this example, I bypassed a common first step in writing loops because I already had the function I wanted to repeat. Frequently, however, I’ll start with repeated code segements, then abstract the underlying process into a function, and then wrap things up in a for loop.</p>
+</div>
+<div id="map" class="section level2">
+<h2>Map</h2>
+<p>A criticism of for loops is that there’s a lot of overhead – you have to define your output vector / list, there’s the for loop bookkeeping to do, etc – that distracts from the purpose of the code. In this case, we want to apply mean_and_sd to each column of df, but we have to scan inside the for loop to figure that out.</p>
+<p>The map functions in purrr try to make the purpose of your code clear. Compare the loop above to the line below.</p>
+<pre class="r"><code>output = map(df, mean_and_sd)</code></pre>
+<p>You can do the same thing for any function:</p>
+<pre class="r"><code>output = map(df, mean_and_sd)
+
+output = map(df, median)
+
+output = map(df, summary) #this is a special summary function we talked about before</code></pre>
 </div>
 </div>
 
