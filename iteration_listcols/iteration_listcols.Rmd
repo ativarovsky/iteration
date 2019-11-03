@@ -337,5 +337,31 @@ This is great! We now have a data frame that has rows for each station; columns 
 
 This is, for sure, a fairly complex bit of code, but in just a few lines we’re able to fit separate linear models to each of our stations. And, once you get used to list columns, map, and the rest of it, these lines of code are pretty clear and can be extended to larger datasets with more complex structures.
 
+## Back to Napoleon
 
- 
+Earlier, we looked at scraping reviews of Napoleon Dynamite from several pages on Amazon. This required the creation of input and output vectors / lists; now we’ll repeat this using data frames and list columns.
+```{r}
+napoleon = 
+  tibble(
+    page = 1:5,
+    urls = str_c(url_base, page)
+  ) %>% 
+  mutate(
+    reviews = map(urls, read_page_reviews)
+  )
+```
+
+# Other Materials
+
+Iteration can be tricky – the readings below will help as you work through this!
+
+- The [chapter](http://r4ds.had.co.nz/iteration.html) on iteration in R for Data Science has a useful treatment of iteration using loops and map
+- Jenny Bryan’s purrr [tutorial](https://jennybc.github.io/purrr-tutorial/) has a lot of useful information and examples
+- R Programming for Data Science has information on [loops](https://bookdown.org/rdpeng/rprogdatascience/control-structures.html#for-loops) and [loop functions](https://bookdown.org/rdpeng/rprogdatascience/loop-functions.html); given Roger Peng’s tendency towards base R he focuses on lapply and others instead of map
+- This [question and response](https://stackoverflow.com/questions/45101045/why-use-purrrmap-instead-of-lapply) on stack overflow explains why one might prefer map to lapply
+
+List columns take some getting used to; there are some materials to help with that.
+
+- R for Data Science has a chapter on [fitting many models](http://r4ds.had.co.nz/many-models.html)
+- Jenny Bryan’s purrr [tutorial](https://jennybc.github.io/purrr-tutorial/) has useful list-column examples
+- The [R file](https://github.com/tidyverse/dplyr/blob/master/data-raw/starwars.R) used to create the starwars dataset (in the tidyverse) using the [Star Wars API](https://swapi.co/) processes list output (from the API) using several map variants

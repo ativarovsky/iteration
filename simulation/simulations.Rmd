@@ -3,28 +3,53 @@ title: "Simulations"
 author: "Alice Tivarovsky"
 date: "10/31/2019"
 output: html_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 
 # Slides
 
-Simulations are useful for statistical modeling. 
+Simulations are super useful in statistics. 
 
 
 
-
-#Examples 
+# Examples 
 
 Setup code: 
 ```{r setup, include=FALSE}
 
 library(tidyverse)
+library(rvest)
+
+knitr::opts_chunk$set(
+	echo = TRUE,
+	warning = FALSE,
+  out.width = "90%"
+)
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
 
 set.seed(1)
 
 ```
 
-##Simulation: Simple Linear Regression for one n
+## Simulation: Simple Linear Regression for one n
+In writing functions we wrote a short function to simulate data from a simple linear regression, fit the regression model, and return estimates of regression coefficients. Specifically, we generate data from
+yi=β0+β1xi+ϵi
+
+for subjects 1≤i≤n
+ with ϵi∼N[0,1]
+ and return estimates
+
+β̂0,β̂1
+
+. That function is below.
 
 ```{r}
 sim_regression = function(n, beta0 = 2, beta1 = 3) {
@@ -43,6 +68,22 @@ sim_regression = function(n, beta0 = 2, beta1 = 3) {
 }
 ```
 
+We can run this as many times as we want: 
+
+```{r}
+sim_regression(n = 30)
+```
+
+## Re-run simulation using for loop
+
+Important statistical properties of estimates β̂0,β̂1 are established under the conceptual framework of repeated sampling. If you could draw from a population over and over, your estimates will have a known mean and variance:
+
+β̂0∼[β0,σ2(1n+x¯∑(xi−x¯)2)] and β̂1∼[β1,σ2∑(xi−x¯)2]
+
+(Because our simulation design generates errors from a Normal distribution we also know that the estimates follow a Normal distribution, although that’s not guaranteed by least squares estimation.)
+
+In the real world, drawing samples is time consuming and costly, so “repeated sampling” remains conceptual. On a computer, though, drawing samples is pretty easy. That makes simulation an appealing way to examine the statistical properties of your estimators.
+
 Let’s run sim_regression() 100 times to see the effect of randomness in ϵ on estimates β̂0,β̂1
 
 ```{r}
@@ -52,11 +93,11 @@ for (i in 1:100) {
   output[[i]] = sim_regression(30)
 }
 
-sim_results = bind_rows(output)
+sim_results = bind_rows(output) #bind_rows function puts everything together
 ```
  
-Taking a look at the for loop we used to create these results, you might notice that there’s no input list – the sequence is used to keep track of the output but doesn’t affect the computation performed inside the for loop. In cases like these, the purrr::rerun function is very handy.
 
+Taking a look at the for loop we used to create these results, you might notice that there’s no input list – the sequence is used to keep track of the output but doesn’t affect the computation performed inside the for loop. In cases like these, the purrr::rerun function is very handy.
 
 ```{r}
 sim_results = 
