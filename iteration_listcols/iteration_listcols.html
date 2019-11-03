@@ -372,13 +372,21 @@ summary {
 
 <div id="slides" class="section level1">
 <h1>Slides</h1>
-<p>###For loops Loops consist of an output object; a sequence to iterate over; the loop body; and (optionally) an input object. For loops are hard to work with but purr package makes for loops easier using map s.</p>
+<div id="for-loops" class="section level3">
+<h3>For loops</h3>
+<p>Loops consist of an output object; a sequence to iterate over; the loop body; and (optionally) an input object. For loops are hard to work with but purr package makes for loops easier using map s.</p>
 <p>Basic structure: output = map(input, f)</p>
-<p>###Lists Lists hold everything. They give you a way to mix different data types (dbl vectors, string vectors, data frames, etc.). Dataframes are a special type of list - one that is formatted as a rectangle.</p>
+</div>
+<div id="lists" class="section level3">
+<h3>Lists</h3>
+<p>Lists hold everything. They give you a way to mix different data types (dbl vectors, string vectors, data frames, etc.). Dataframes are a special type of list - one that is formatted as a rectangle.</p>
 <p>You can even put lists inside of lists - these are called list columns. This makes data easier to work with (even though it’s hard to understand in the beginning).</p>
-<p>#Examples</p>
+</div>
+</div>
+<div id="examples" class="section level1">
+<h1>Examples</h1>
 <p>Setup code:</p>
-<div id="lists" class="section level2">
+<div id="lists-1" class="section level2">
 <h2>Lists</h2>
 <p>We need a brief digression about lists before we do anything.</p>
 <p>In R, vectors are limited to a single data class – all elements are characters, or all numeric, or all logical. Trying to join the following vectors will result in <em>coersion</em>, as would creating vectors of mixed types.</p>
@@ -400,13 +408,13 @@ l</code></pre>
 ## 
 ## $summary
 ##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-## -2.82450 -0.63080  0.03694  0.04792  0.75057  3.22777</code></pre>
+## -3.63791 -0.62058  0.02493  0.02142  0.68219  2.98623</code></pre>
 <p>We can pull stuff out of the list:</p>
 <pre class="r"><code>l$vec_numeric</code></pre>
 <pre><code>## [1] 5 6 7 8</code></pre>
 <pre class="r"><code>l$summary</code></pre>
 <pre><code>##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-## -2.82450 -0.63080  0.03694  0.04792  0.75057  3.22777</code></pre>
+## -3.63791 -0.62058  0.02493  0.02142  0.68219  2.98623</code></pre>
 <pre class="r"><code># you can also use the index
 l[[2]]</code></pre>
 <pre><code>##      [,1] [,2] [,3] [,4]
@@ -417,7 +425,7 @@ mean(l$vec_numeric)</code></pre>
 <pre><code>## [1] 6.5</code></pre>
 <p>Lists seem bizarre but are really useful. Right now, we’ll use them to hold general inputs and outputs of iterative processes. Even more importantly, we’ll see that data frames are actually a very specific kind of list – one comprised of vectors of the same length – which is why they can store variables of different types.</p>
 </div>
-<div id="for-loops" class="section level2">
+<div id="for-loops-1" class="section level2">
 <h2>For Loops</h2>
 <p>For this example, I’m going to start with the pretty simple data frame defined below, and confirm that “under the hood” this is a list.</p>
 <pre class="r"><code>df = list(
@@ -429,14 +437,14 @@ mean(l$vec_numeric)</code></pre>
 
 #pulling stuff out of the list
 df$a</code></pre>
-<pre><code>##  [1] 1.682662 3.052515 3.652305 2.155949 3.028225 4.074863 2.803058
-##  [8] 2.469925 2.391144 2.615778 2.104123 3.964683 3.612575 3.017619
-## [15] 2.479443 3.151382 3.779231 2.851061 4.075272 1.212075</code></pre>
+<pre><code>##  [1] 3.290152 2.504364 3.391074 2.281150 2.706494 2.622005 1.109460
+##  [8] 4.671826 1.985311 2.036782 2.067691 3.379312 3.261065 1.971298
+## [15] 2.363962 3.014437 2.933443 3.501578 1.322083 4.603931</code></pre>
 <pre class="r"><code>df[[2]]</code></pre>
-<pre><code>##  [1]   1.9477411  -0.1438394   1.7396198   4.9551572  -5.5211305
-##  [6]   2.4824764  -3.2377736  -6.4336970 -11.3649004 -10.4202802
-## [11]  -4.1989221  -3.3135711  -5.1920156  -3.8161479  -1.9879057
-## [16]  -4.1782085  -4.8424980   4.4678293  -2.6251315  -7.9405485</code></pre>
+<pre><code>##  [1]   1.0853978  -2.3504091  -3.0882922  -3.1731324  14.9887926
+##  [6] -12.0634090   5.5097401   2.9926308   0.9239760  -0.4787874
+## [11]   1.4995619   1.1559915   6.6028529  -5.6324142   1.7312507
+## [16]   0.1001762   1.4898837  -3.4870656  -3.4122971  -0.0836077</code></pre>
 <p>In the writing functions class, we wrote a function that returns mean and standard deviation. Here it is again:</p>
 <pre class="r"><code>mean_and_sd = function(x) {
   
@@ -459,22 +467,22 @@ df$a</code></pre>
 <pre><code>## # A tibble: 1 x 2
 ##    mean    sd
 ##   &lt;dbl&gt; &lt;dbl&gt;
-## 1  2.91 0.798</code></pre>
+## 1  2.75 0.932</code></pre>
 <pre class="r"><code>mean_and_sd(df[[2]])</code></pre>
 <pre><code>## # A tibble: 1 x 2
 ##    mean    sd
 ##   &lt;dbl&gt; &lt;dbl&gt;
-## 1 -2.98  4.50</code></pre>
+## 1 0.216  5.35</code></pre>
 <pre class="r"><code>mean_and_sd(df[[3]])</code></pre>
 <pre><code>## # A tibble: 1 x 2
 ##    mean    sd
 ##   &lt;dbl&gt; &lt;dbl&gt;
-## 1  10.0 0.190</code></pre>
+## 1  10.0 0.248</code></pre>
 <pre class="r"><code>mean_and_sd(df[[4]])</code></pre>
 <pre><code>## # A tibble: 1 x 2
 ##    mean    sd
 ##   &lt;dbl&gt; &lt;dbl&gt;
-## 1 -3.04  1.15</code></pre>
+## 1 -3.03 0.954</code></pre>
 <p>But now we’ve broken our “don’t repeat code more than twice” rule! Specifically, we’ve applied the same function / operation to the elements of a list sequentially. This is exactly the kind of code repetition for loops address.</p>
 <p>Below, I define an output list with the same number of entries as my target dataframe; a sequence to iterate over; and a for loop body that applies the mean_and_sd function for each sequence element and saves the result.</p>
 <pre class="r"><code>output = vector(&quot;list&quot;, length = 4) #give you 4 blank slots
@@ -490,25 +498,25 @@ output</code></pre>
 ## # A tibble: 1 x 2
 ##    mean    sd
 ##   &lt;dbl&gt; &lt;dbl&gt;
-## 1  2.91 0.798
+## 1  2.75 0.932
 ## 
 ## [[2]]
 ## # A tibble: 1 x 2
 ##    mean    sd
 ##   &lt;dbl&gt; &lt;dbl&gt;
-## 1 -2.98  4.50
+## 1 0.216  5.35
 ## 
 ## [[3]]
 ## # A tibble: 1 x 2
 ##    mean    sd
 ##   &lt;dbl&gt; &lt;dbl&gt;
-## 1  10.0 0.190
+## 1  10.0 0.248
 ## 
 ## [[4]]
 ## # A tibble: 1 x 2
 ##    mean    sd
 ##   &lt;dbl&gt; &lt;dbl&gt;
-## 1 -3.04  1.15</code></pre>
+## 1 -3.03 0.954</code></pre>
 <p>This is already much cleaner than using four almost-identical lines of code, and will make life easier the larger our sequence gets.</p>
 <p>In this example, I bypassed a common first step in writing loops because I already had the function I wanted to repeat. Frequently, however, I’ll start with repeated code segements, then abstract the underlying process into a function, and then wrap things up in a for loop.</p>
 </div>
@@ -523,6 +531,268 @@ output</code></pre>
 output = map(df, median)
 
 output = map(df, summary) #this is a special summary function we talked about before</code></pre>
+<p>This is a way to be more explicit about your output:</p>
+<pre class="r"><code>output = map(df, ~mean_and_sd, .x)</code></pre>
+</div>
+<div id="revisiting-napoleon-dynamite" class="section level2">
+<h2>Revisiting Napoleon Dynamite</h2>
+<p>In reading data from the web and elsewhere, we wrote code that allowed us to scrape information in Amazon reviews; in writing functions we wrapped that code into a function called read_page_reviews which, for a given url, produces a data frame containing review titles, star ratings, and text.</p>
+<pre class="r"><code>read_page_reviews = function(url) {
+  
+  h = read_html(url)
+  
+  title = h %&gt;%
+    html_nodes(&quot;#cm_cr-review_list .review-title&quot;) %&gt;%
+    html_text()
+  
+  stars = h %&gt;%
+    html_nodes(&quot;#cm_cr-review_list .review-rating&quot;) %&gt;%
+    html_text() %&gt;%
+    str_extract(&quot;\\d&quot;) %&gt;%
+    as.numeric()
+  
+  text = h %&gt;%
+    html_nodes(&quot;.review-data:nth-child(5)&quot;) %&gt;%
+    html_text()
+  
+  data_frame(title, stars, text)
+}</code></pre>
+<p>We will now create a vector of urls that we want to operate on.</p>
+<pre class="r"><code>url_base = &quot;https://www.amazon.com/product-reviews/B00005JNBQ/ref=cm_cr_arp_d_viewopt_rvwer?ie=UTF8&amp;reviewerType=avp_only_reviews&amp;sortBy=recent&amp;pageNumber=&quot;
+vec_urls = str_c(url_base, 1:5) #the str_c from the stringr package puts a number at the end of the string
+
+vec_urls</code></pre>
+<pre><code>## [1] &quot;https://www.amazon.com/product-reviews/B00005JNBQ/ref=cm_cr_arp_d_viewopt_rvwer?ie=UTF8&amp;reviewerType=avp_only_reviews&amp;sortBy=recent&amp;pageNumber=1&quot;
+## [2] &quot;https://www.amazon.com/product-reviews/B00005JNBQ/ref=cm_cr_arp_d_viewopt_rvwer?ie=UTF8&amp;reviewerType=avp_only_reviews&amp;sortBy=recent&amp;pageNumber=2&quot;
+## [3] &quot;https://www.amazon.com/product-reviews/B00005JNBQ/ref=cm_cr_arp_d_viewopt_rvwer?ie=UTF8&amp;reviewerType=avp_only_reviews&amp;sortBy=recent&amp;pageNumber=3&quot;
+## [4] &quot;https://www.amazon.com/product-reviews/B00005JNBQ/ref=cm_cr_arp_d_viewopt_rvwer?ie=UTF8&amp;reviewerType=avp_only_reviews&amp;sortBy=recent&amp;pageNumber=4&quot;
+## [5] &quot;https://www.amazon.com/product-reviews/B00005JNBQ/ref=cm_cr_arp_d_viewopt_rvwer?ie=UTF8&amp;reviewerType=avp_only_reviews&amp;sortBy=recent&amp;pageNumber=5&quot;</code></pre>
+<p>Now, we’ll write a for loop and map statement to pull out the first five pages of reviews.</p>
+<pre class="r"><code>url_base = &quot;https://www.amazon.com/product-reviews/B00005JNBQ/ref=cm_cr_arp_d_viewopt_rvwer?ie=UTF8&amp;reviewerType=avp_only_reviews&amp;sortBy=recent&amp;pageNumber=&quot;
+vec_urls = str_c(url_base, 1:5) 
+
+output = vector(&quot;list&quot;, length = 5)
+
+for (i in 1:5) {
+  
+  output[[i]] = read_page_reviews(vec_urls[[i]])
+  
+}
+
+# Alternatively, you could just use a map statement
+
+output = map(vec_urls, read_page_reviews)</code></pre>
+</div>
+<div id="list-columns" class="section level2">
+<h2>List Columns</h2>
+<p>Shifting gears a bit, let’s revisit the weather data from visualization and elsewhere; these data consist of one year of observations from three monitoring stations. The code below pulls these data into R (using the rnoaa package, which interacts with the NOAA API).</p>
+<p>So again, we make a dataframe called weather and assign appropriate names.</p>
+<pre class="r"><code>weather = 
+  rnoaa::meteo_pull_monitors(
+    c(&quot;USW00094728&quot;, &quot;USC00519397&quot;, &quot;USS0023B17S&quot;),
+    var = c(&quot;PRCP&quot;, &quot;TMIN&quot;, &quot;TMAX&quot;), 
+    date_min = &quot;2016-01-01&quot;,
+    date_max = &quot;2016-12-31&quot;) %&gt;%
+  mutate(
+    name = recode(id, USW00094728 = &quot;CentralPark_NY&quot;, 
+                      USC00519397 = &quot;Waikiki_HA&quot;,
+                      USS0023B17S = &quot;Waterhole_WA&quot;),
+    tmin = tmin / 10,
+    tmax = tmax / 10) %&gt;%
+  select(name, id, everything())</code></pre>
+<pre><code>## Registered S3 method overwritten by 'crul':
+##   method                 from
+##   as.character.form_file httr</code></pre>
+<pre><code>## Registered S3 method overwritten by 'hoardr':
+##   method           from
+##   print.cache_info httr</code></pre>
+<pre><code>## file path:          /Users/AliceTivarovsky/Library/Caches/rnoaa/ghcnd/USW00094728.dly</code></pre>
+<pre><code>## file last updated:  2019-09-26 10:27:16</code></pre>
+<pre><code>## file min/max dates: 1869-01-01 / 2019-09-30</code></pre>
+<pre><code>## file path:          /Users/AliceTivarovsky/Library/Caches/rnoaa/ghcnd/USC00519397.dly</code></pre>
+<pre><code>## file last updated:  2019-09-26 10:27:29</code></pre>
+<pre><code>## file min/max dates: 1965-01-01 / 2019-09-30</code></pre>
+<pre><code>## file path:          /Users/AliceTivarovsky/Library/Caches/rnoaa/ghcnd/USS0023B17S.dly</code></pre>
+<pre><code>## file last updated:  2019-09-26 10:27:33</code></pre>
+<pre><code>## file min/max dates: 1999-09-01 / 2019-09-30</code></pre>
+<p>The station name and id are constant across the year’s temperature and precipitation data. For that reason, we can reorganize these data into a new data frame with a single row for each station. Weather data will be separated into three station-specific data frames, each of which is the data “observation” for the respective station.</p>
+<p>Here, we nest within station.</p>
+<pre class="r"><code>weather_nest = 
+  nest(weather, data = date:tmin)
+
+weather_nest</code></pre>
+<pre><code>## # A tibble: 3 x 3
+##   name           id                    data
+##   &lt;chr&gt;          &lt;chr&gt;       &lt;list&lt;df[,4]&gt;&gt;
+## 1 CentralPark_NY USW00094728      [366 × 4]
+## 2 Waikiki_HA     USC00519397      [366 × 4]
+## 3 Waterhole_WA   USS0023B17S      [366 × 4]</code></pre>
+<p>Here I’ve used nest by specifying a column range to collapse within remaining variable values.</p>
+<p>The name column is a character column – if you pull this column from the weather data frame, the result is a character vector. Similarly, the data column is a list column – on it’s own, it’s a list.</p>
+<pre class="r"><code>weather_nest %&gt;% pull(name)</code></pre>
+<pre><code>## [1] &quot;CentralPark_NY&quot; &quot;Waikiki_HA&quot;     &quot;Waterhole_WA&quot;</code></pre>
+<pre class="r"><code>weather_nest %&gt;% pull(data)</code></pre>
+<pre><code>## &lt;list_of&lt;
+##   tbl_df&lt;
+##     date: date
+##     prcp: double
+##     tmax: double
+##     tmin: double
+##   &gt;
+## &gt;[3]&gt;
+## [[1]]
+## # A tibble: 366 x 4
+##    date        prcp  tmax  tmin
+##    &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 2016-01-01     0   5.6   1.1
+##  2 2016-01-02     0   4.4   0  
+##  3 2016-01-03     0   7.2   1.7
+##  4 2016-01-04     0   2.2  -9.9
+##  5 2016-01-05     0  -1.6 -11.6
+##  6 2016-01-06     0   5    -3.8
+##  7 2016-01-07     0   7.8  -0.5
+##  8 2016-01-08     0   7.8  -0.5
+##  9 2016-01-09     0   8.3   4.4
+## 10 2016-01-10   457  15     4.4
+## # … with 356 more rows
+## 
+## [[2]]
+## # A tibble: 366 x 4
+##    date        prcp  tmax  tmin
+##    &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 2016-01-01     0  29.4  16.7
+##  2 2016-01-02     0  28.3  16.7
+##  3 2016-01-03     0  28.3  16.7
+##  4 2016-01-04     0  28.3  16.1
+##  5 2016-01-05     0  27.2  16.7
+##  6 2016-01-06     0  27.2  20  
+##  7 2016-01-07    46  27.8  18.3
+##  8 2016-01-08     3  28.3  17.8
+##  9 2016-01-09     8  27.8  19.4
+## 10 2016-01-10     3  28.3  18.3
+## # … with 356 more rows
+## 
+## [[3]]
+## # A tibble: 366 x 4
+##    date        prcp  tmax  tmin
+##    &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 2016-01-01     0   1.7  -5.9
+##  2 2016-01-02    25  -0.1  -6  
+##  3 2016-01-03     0  -5   -10  
+##  4 2016-01-04    25   0.3  -9.8
+##  5 2016-01-05    25   1.9  -1.8
+##  6 2016-01-06    25   1.4  -2.6
+##  7 2016-01-07     0   1.4  -3.9
+##  8 2016-01-08     0   1.1  -4  
+##  9 2016-01-09     0   1.4  -4.5
+## 10 2016-01-10     0   2.3  -3.8
+## # … with 356 more rows</code></pre>
+<p>The list column really is a list, and will behave as such elsewhere in R. So, for example, you can examine the first list entry using usual list index procedures.</p>
+<pre class="r"><code>weather_nest$data[[1]]</code></pre>
+<pre><code>## # A tibble: 366 x 4
+##    date        prcp  tmax  tmin
+##    &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 2016-01-01     0   5.6   1.1
+##  2 2016-01-02     0   4.4   0  
+##  3 2016-01-03     0   7.2   1.7
+##  4 2016-01-04     0   2.2  -9.9
+##  5 2016-01-05     0  -1.6 -11.6
+##  6 2016-01-06     0   5    -3.8
+##  7 2016-01-07     0   7.8  -0.5
+##  8 2016-01-08     0   7.8  -0.5
+##  9 2016-01-09     0   8.3   4.4
+## 10 2016-01-10   457  15     4.4
+## # … with 356 more rows</code></pre>
+<p>Of course, if you can nest data you should be able to unnest it as well, and you can (with the caveat that you’re unnesting a list column that contains a data frame).</p>
+<pre class="r"><code>unnest(weather_nest, cols = data)</code></pre>
+<pre><code>## # A tibble: 1,098 x 6
+##    name           id          date        prcp  tmax  tmin
+##    &lt;chr&gt;          &lt;chr&gt;       &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 CentralPark_NY USW00094728 2016-01-01     0   5.6   1.1
+##  2 CentralPark_NY USW00094728 2016-01-02     0   4.4   0  
+##  3 CentralPark_NY USW00094728 2016-01-03     0   7.2   1.7
+##  4 CentralPark_NY USW00094728 2016-01-04     0   2.2  -9.9
+##  5 CentralPark_NY USW00094728 2016-01-05     0  -1.6 -11.6
+##  6 CentralPark_NY USW00094728 2016-01-06     0   5    -3.8
+##  7 CentralPark_NY USW00094728 2016-01-07     0   7.8  -0.5
+##  8 CentralPark_NY USW00094728 2016-01-08     0   7.8  -0.5
+##  9 CentralPark_NY USW00094728 2016-01-09     0   8.3   4.4
+## 10 CentralPark_NY USW00094728 2016-01-10   457  15     4.4
+## # … with 1,088 more rows</code></pre>
+<p>Nesting columns can help with data organization and comprehension by masking complexity you’re less concerned about right now and clarifying the things you are concerned about. In the weather data, it can be helpful to think of stations as the basic unit of observation, and daily weather recordings as a more granular level of observation. Nesting can also simplify the use of analytic approaches across levels of a higher variable.</p>
+</div>
+<div id="operations-on-listcols" class="section level2">
+<h2>Operations on listcols</h2>
+<p>Let’s say that, within each weather station, we want to see weather tmax is associated with tmin. You could do something like:</p>
+<pre class="r"><code>central_park_df = weather_nest$data[[1]]
+
+lm(tmax ~ tmin, data = central_park_df)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = tmax ~ tmin, data = central_park_df)
+## 
+## Coefficients:
+## (Intercept)         tmin  
+##       7.779        1.045</code></pre>
+<pre class="r"><code>lm(tmax ~ tmin, data = weather_nest$data[[1]])</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = tmax ~ tmin, data = weather_nest$data[[1]])
+## 
+## Coefficients:
+## (Intercept)         tmin  
+##       7.779        1.045</code></pre>
+<pre class="r"><code>lm(tmax ~ tmin, data = weather_nest$data[[2]])</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = tmax ~ tmin, data = weather_nest$data[[2]])
+## 
+## Coefficients:
+## (Intercept)         tmin  
+##      22.489        0.326</code></pre>
+<pre class="r"><code>lm(tmax ~ tmin, data = weather_nest$data[[3]])</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = tmax ~ tmin, data = weather_nest$data[[3]])
+## 
+## Coefficients:
+## (Intercept)         tmin  
+##       6.851        1.245</code></pre>
+<p>We could try a loop:</p>
+<pre class="r"><code>output = vector(&quot;list&quot;, length = 3)
+
+for (i in 1:3) {
+  
+  output[[i]] = lm(tmax ~ tmin, weather_nest$data[[i]])
+}</code></pre>
+<p>Now the map. First we define the function, then the map.</p>
+<pre class="r"><code>weather_lm = function(df) {
+  
+  lm(tmax ~ tmin, data = df)
+  
+}</code></pre>
+<pre class="r"><code>for (i in 1:3) {
+  
+  output[[i]] = weather_lm(weather_nest$data[[i]])
+  
+}
+
+output = map(weather_nest$data, weather_lm)</code></pre>
+<p>The map function returns a list; we could store the results as a new list column … !!!</p>
+<p>We’ve been using mutate to define a new variable in a data frame, especially one that is a function of an existing variable. That’s exactly what we will keep doing.</p>
+<pre class="r"><code>weather_nest = 
+  weather_nest %&gt;% 
+  mutate(models = map(data, weather_lm))
+
+weather_nest</code></pre>
+<pre><code>## # A tibble: 3 x 4
+##   name           id                    data models
+##   &lt;chr&gt;          &lt;chr&gt;       &lt;list&lt;df[,4]&gt;&gt; &lt;list&gt;
+## 1 CentralPark_NY USW00094728      [366 × 4] &lt;lm&gt;  
+## 2 Waikiki_HA     USC00519397      [366 × 4] &lt;lm&gt;  
+## 3 Waterhole_WA   USS0023B17S      [366 × 4] &lt;lm&gt;</code></pre>
+<p>This is great! We now have a data frame that has rows for each station; columns contain weather datasets and fitted models. This makes it very easy to keep track of models across stations, and to perform additional analyses.</p>
+<p>This is, for sure, a fairly complex bit of code, but in just a few lines we’re able to fit separate linear models to each of our stations. And, once you get used to list columns, map, and the rest of it, these lines of code are pretty clear and can be extended to larger datasets with more complex structures.</p>
 </div>
 </div>
 
