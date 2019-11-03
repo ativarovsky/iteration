@@ -29,8 +29,6 @@ library(rvest)
 knitr::opts_chunk$set(
 	echo = TRUE,
 	warning = FALSE,
-	fig.width = 8, 
-  fig.height = 6,
   out.width = "90%"
 )
 options(
@@ -139,7 +137,9 @@ In general, either of these will be fine; which one you choose will depend on wh
 
 ## Multiple Inputs
 
-Go through this again. 
+As exciting as it is to compute Z scores, let’s start setting our sights higher. I’d like to have a function that takes a given sample size and true simple linear regression line, simulates data from that model, and returns the estimated intercept and slope. 
+
+Here, x is a sample from a standard normal distribution of mean 1 and sd 0, and y is 2 + 3x + some error noise (you can plot x vs y using ggplot). The regression is modeled using ls_fit. 
 
 ```{r}
 sim_data = tibble(
@@ -147,18 +147,20 @@ sim_data = tibble(
   y = 2 + 3 * x + rnorm(30, 0, 1)
 )
 
+#sim_data %>% ggplot(aes(x = x, y = y)) + geom_point()
+       
 ls_fit = lm(y ~ x, data = sim_data)
-  
+
+#don't need to understand this syntax for now, just know it extracts the intercept and slope: 
 beta0_hat = coef(ls_fit)[1]
 beta1_hat = coef(ls_fit)[2]
 ```
 
 
-Write a function that simulates regression: 
+Write a function that simulates regression. I’d like to be able to change the sample size and regression parameters, so those will be my arguments; the code that simulates data and fits the regression goes in the body; and the return statement should include the intercept and slope. A function that does all this is below. Here, the arguments are sample size, intercept and slope. We can set defaults for beta0 and beta1 in the first line. 
 
 ```{r}
-
-sim_regression = function(n, beta0 = 2, beta1 = 3) {
+sim_regression = function(n, beta0, beta1) {
   
 sim_data = tibble(
     x = rnorm(n, mean = 1, sd = 1),
@@ -166,14 +168,14 @@ sim_data = tibble(
   )
   
 ls_fit = lm(y ~ x, data = sim_data)
-  
+
 tibble(
     beta0_hat = coef(ls_fit)[1],
     beta1_hat = coef(ls_fit)[2]
   )
   }
 
-sim_regression(3000)
+sim_regression(n = 3000, beta0 = 17, beta1 = -3) #note that we don't have to write beta0=, beta1=, etc. We can just write sim_regression(3000, 17, 03)
 ```
 
 

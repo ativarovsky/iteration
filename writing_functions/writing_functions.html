@@ -392,11 +392,11 @@ y = rnorm(n = 30, mean = 24, sd = 2.3)
 
 z_transformation = mean(x)/sd(x)
 (x_again - mean(x_again)/sd(x_again))</code></pre>
-<pre><code>##  [1] -15.07809 -15.34186 -15.41429 -15.47995 -15.63168 -14.95930 -15.62546
-##  [8] -15.47317 -15.14226 -14.82971 -14.98861 -15.50991 -15.35157 -15.20024
-## [15] -15.20949 -15.27103 -15.42867 -15.47872 -15.13297 -15.72328 -15.51665
-## [22] -15.16149 -14.90919 -15.47961 -15.78019 -15.23441 -15.03447 -15.44238
-## [29] -15.81627 -15.90933</code></pre>
+<pre><code>##  [1] -16.63624 -17.20074 -16.50019 -17.38853 -16.96334 -17.22458 -16.90759
+##  [8] -16.81693 -17.11560 -17.19590 -16.54071 -16.86462 -16.89910 -16.75628
+## [15] -17.29254 -16.94115 -17.36896 -17.26814 -17.30176 -17.45606 -17.25363
+## [22] -17.17753 -17.21555 -17.34929 -16.84632 -16.82187 -17.24867 -17.25068
+## [29] -17.14815 -17.09579</code></pre>
 <p>To avoid the above, write a function:</p>
 <pre class="r"><code># here, x is what we're calling whatever we put in the function and z_score is the name of the function. 
 
@@ -406,26 +406,26 @@ z_score = function(x) {
 }</code></pre>
 <p>Now we try out the function.</p>
 <pre class="r"><code>z_score(x)</code></pre>
-<pre><code>##  [1]  1.273209910 -1.516601826  1.183489287 -1.342864795 -0.009252877
-##  [6] -0.922108459  0.701772218 -1.030892303  0.357634133 -0.361039997
-## [11]  0.383963651  0.593982017  0.618354023 -0.503651606 -1.871407849
-## [16] -0.092575413  1.125240578 -1.451131475  0.368084663  1.108759996
-## [21]  1.559348888  0.038165457 -0.745854399  1.574255927  1.034252414
-## [26] -0.652218598  0.465300272  0.125237967 -0.453704320 -1.557747484</code></pre>
+<pre><code>##  [1]  1.58915759  1.01285118 -0.89344218  0.90061328  0.81399744
+##  [6]  0.69189386  0.18037620  0.29168454 -0.31288816  0.51363810
+## [11] -1.75917382 -0.08676295  1.64914328 -0.49030449 -0.44661340
+## [16] -0.75007356 -0.48326675  0.02271383  0.59637512  0.71258190
+## [21] -0.32557972 -0.60922863 -0.58739417 -1.25440244 -1.53134929
+## [26]  0.18440017  0.85667771 -0.05617951  1.87008405 -2.29952918</code></pre>
 <pre class="r"><code>z_score(x = x) # same thing as above </code></pre>
-<pre><code>##  [1]  1.273209910 -1.516601826  1.183489287 -1.342864795 -0.009252877
-##  [6] -0.922108459  0.701772218 -1.030892303  0.357634133 -0.361039997
-## [11]  0.383963651  0.593982017  0.618354023 -0.503651606 -1.871407849
-## [16] -0.092575413  1.125240578 -1.451131475  0.368084663  1.108759996
-## [21]  1.559348888  0.038165457 -0.745854399  1.574255927  1.034252414
-## [26] -0.652218598  0.465300272  0.125237967 -0.453704320 -1.557747484</code></pre>
+<pre><code>##  [1]  1.58915759  1.01285118 -0.89344218  0.90061328  0.81399744
+##  [6]  0.69189386  0.18037620  0.29168454 -0.31288816  0.51363810
+## [11] -1.75917382 -0.08676295  1.64914328 -0.49030449 -0.44661340
+## [16] -0.75007356 -0.48326675  0.02271383  0.59637512  0.71258190
+## [21] -0.32557972 -0.60922863 -0.58739417 -1.25440244 -1.53134929
+## [26]  0.18440017  0.85667771 -0.05617951  1.87008405 -2.29952918</code></pre>
 <pre class="r"><code>z_score(x = y)</code></pre>
-<pre><code>##  [1] -0.87746135  2.19525377 -0.04953159  1.81391172  1.80761240
-##  [6] -1.55456910 -0.16389606 -1.42180527 -0.21783342 -0.83910484
-## [11] -0.78647652  0.85285637 -0.17696448 -0.71356809  0.51492764
-## [16]  2.10778753  0.33447673 -0.51599873  0.88471734 -0.42154475
-## [21] -0.64350454  0.74561341 -0.00884114 -0.25841310 -1.20995620
-## [26] -0.49618019  0.07472980  0.15000826 -0.18112550 -0.94512009</code></pre>
+<pre><code>##  [1] -0.98482316 -0.74692023 -0.65636511  1.32640751 -1.21500541
+##  [6] -1.81131389 -0.55886153  0.02737317  0.15935867  2.01415820
+## [11]  1.04570257 -0.65252040  1.19299646 -0.32919270 -0.30423570
+## [16]  1.12604146  1.06998447 -0.34609488  0.64764663  0.55464769
+## [21]  0.77655564 -1.88735117 -0.96947982  1.46845096 -0.83182539
+## [26]  0.11614620 -0.95970584  0.90211345 -0.01708509 -0.15680275</code></pre>
 <pre class="r"><code>z_score(x = 3)</code></pre>
 <pre><code>## [1] NA</code></pre>
 <pre class="r"><code>z_score(x = &quot;my name is alice&quot;)</code></pre>
@@ -445,12 +445,12 @@ z_score = function(x) {
 }</code></pre>
 <p>Running again:</p>
 <pre class="r"><code>z_score(x)</code></pre>
-<pre><code>##  [1]  1.273209910 -1.516601826  1.183489287 -1.342864795 -0.009252877
-##  [6] -0.922108459  0.701772218 -1.030892303  0.357634133 -0.361039997
-## [11]  0.383963651  0.593982017  0.618354023 -0.503651606 -1.871407849
-## [16] -0.092575413  1.125240578 -1.451131475  0.368084663  1.108759996
-## [21]  1.559348888  0.038165457 -0.745854399  1.574255927  1.034252414
-## [26] -0.652218598  0.465300272  0.125237967 -0.453704320 -1.557747484</code></pre>
+<pre><code>##  [1]  1.58915759  1.01285118 -0.89344218  0.90061328  0.81399744
+##  [6]  0.69189386  0.18037620  0.29168454 -0.31288816  0.51363810
+## [11] -1.75917382 -0.08676295  1.64914328 -0.49030449 -0.44661340
+## [16] -0.75007356 -0.48326675  0.02271383  0.59637512  0.71258190
+## [21] -0.32557972 -0.60922863 -0.58739417 -1.25440244 -1.53134929
+## [26]  0.18440017  0.85667771 -0.05617951  1.87008405 -2.29952918</code></pre>
 <pre class="r"><code>z_score(x = 3)</code></pre>
 <pre><code>## Error in z_score(x = 3): Z scores cannot be computed for length 1 vectors</code></pre>
 <pre class="r"><code>z_score(x = &quot;my name is alice&quot;)</code></pre>
@@ -479,24 +479,28 @@ z_score = function(x) {
 <pre><code>## # A tibble: 1 x 2
 ##   mean_x  sd_x
 ##    &lt;dbl&gt; &lt;dbl&gt;
-## 1   24.0  2.14</code></pre>
+## 1   23.7  2.54</code></pre>
 <p>Note that above, when we used a tibble, we chould have also used a list. Lists are cool because they allow you to keep track of things that aren’t numbers.</p>
 <p>In general, either of these will be fine; which one you choose will depend on what kind of values you want to return, and what you plan to do with the function itself. If you want to return the original sample along with the computed values, a list might make sense; if you plan to run your function a lot and study the results, having a data frame will make it easier to use other tools. We’ll see more of that in iteration and simulation.</p>
 </div>
 <div id="multiple-inputs" class="section level2">
 <h2>Multiple Inputs</h2>
-<p>Go through this again.</p>
+<p>As exciting as it is to compute Z scores, let’s start setting our sights higher. I’d like to have a function that takes a given sample size and true simple linear regression line, simulates data from that model, and returns the estimated intercept and slope.</p>
+<p>Here, x is a sample from a standard normal distribution of mean 1 and sd 0, and y is 2 + 3x + some error noise (you can plot x vs y using ggplot). The regression is modeled using ls_fit.</p>
 <pre class="r"><code>sim_data = tibble(
   x = rnorm(30, mean = 1, sd = 1),
   y = 2 + 3 * x + rnorm(30, 0, 1)
 )
 
+#sim_data %&gt;% ggplot(aes(x = x, y = y)) + geom_point()
+       
 ls_fit = lm(y ~ x, data = sim_data)
-  
+
+#don't need to understand this syntax for now, just know it extracts the intercept and slope: 
 beta0_hat = coef(ls_fit)[1]
 beta1_hat = coef(ls_fit)[2]</code></pre>
-<p>Write a function that simulates regression:</p>
-<pre class="r"><code>sim_regression = function(n, beta0 = 2, beta1 = 3) {
+<p>Write a function that simulates regression. I’d like to be able to change the sample size and regression parameters, so those will be my arguments; the code that simulates data and fits the regression goes in the body; and the return statement should include the intercept and slope. A function that does all this is below. Here, the arguments are sample size, intercept and slope. We can set defaults for beta0 and beta1 in the first line.</p>
+<pre class="r"><code>sim_regression = function(n, beta0, beta1) {
   
 sim_data = tibble(
     x = rnorm(n, mean = 1, sd = 1),
@@ -504,18 +508,18 @@ sim_data = tibble(
   )
   
 ls_fit = lm(y ~ x, data = sim_data)
-  
+
 tibble(
     beta0_hat = coef(ls_fit)[1],
     beta1_hat = coef(ls_fit)[2]
   )
   }
 
-sim_regression(3000)</code></pre>
+sim_regression(n = 3000, beta0 = 17, beta1 = -3) #note that we don't have to write beta0=, beta1=, etc. We can just write sim_regression(3000, 17, 03)</code></pre>
 <pre><code>## # A tibble: 1 x 2
 ##   beta0_hat beta1_hat
 ##       &lt;dbl&gt;     &lt;dbl&gt;
-## 1      1.99      3.01</code></pre>
+## 1      17.0     -2.99</code></pre>
 </div>
 </div>
 <div id="argument-names-and-scoping" class="section level1">
